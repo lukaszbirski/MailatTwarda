@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
         <variable
             name="message"
             type="pl.birskidev.mailattwarda.domain.model.MyMessage" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:background="#C5CAE9"
-        android:foreground="?attr/selectableItemBackground">
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center_vertical"
+            android:orientation="vertical"
             android:paddingLeft="5dp">
 
             <TextView
@@ -34,7 +34,7 @@
                 android:text="@{message.sender}"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="name@gmail.com"/>
+                tools:text="name@gmail.com" />
 
             <TextView
                 android:id="@+id/subject_message"
@@ -42,51 +42,42 @@
                 android:layout_height="wrap_content"
                 android:text="@{message.title}"
                 android:textStyle="normal"
-                tools:text="Some random information is displayed here."/>
+                tools:text="Some random information is displayed here." />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="5dp"
-            android:orientation="horizontal"
-            android:layout_gravity="right|top">
+            android:layout_gravity="right|center_vertical"
+            android:orientation="vertical"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:id="@+id/time_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingLeft="5dp"
+                android:text="@{message.time}"
+                tools:text="19:03" />
+
+            <TextView
+                android:id="@+id/date_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingLeft="5dp"
+                android:text="@{message.date}"
+                tools:text="05 Jan 2021" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
                 android:layout_gravity="right"
-                app:srcCompat="@drawable/attachment_icon"
-                android:visibility="@{message.hasAttachments ? View.VISIBLE : View.GONE}"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:orientation="vertical"
-                android:layout_gravity="right|top">
-
-                <TextView
-                    android:id="@+id/time_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:paddingLeft="5dp"
-                    android:text="@{message.time}"
-                    tools:text="19:03"/>
-
-                <TextView
-                    android:id="@+id/date_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:paddingLeft="5dp"
-                    android:text="@{message.date}"
-                    tools:text="05 Jan 2021"/>
-
-            </LinearLayout>
+                android:paddingTop="5dp"
+                android:visibility="@{message.hasAttachments ? View.VISIBLE : View.GONE}"
+                app:srcCompat="@drawable/attachment_icon" />
 
         </LinearLayout>
 
