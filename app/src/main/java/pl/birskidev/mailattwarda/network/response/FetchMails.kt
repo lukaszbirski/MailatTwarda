@@ -1,4 +1,4 @@
-package pl.birskidev.mailattwarda.network
+package pl.birskidev.mailattwarda.network.response
 
 import io.reactivex.Single
 import javax.mail.Message
