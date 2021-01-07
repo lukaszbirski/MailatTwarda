@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,10 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.MessageListFragmentBinding
+import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.MessageAdapter
+import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.RecyclerViewClickListener
 import pl.birskidev.mailattwarda.util.TAG
 
 @AndroidEntryPoint
-class MessageListFragment : Fragment() {
+class MessageListFragment : Fragment(), RecyclerViewClickListener {
 
     private var _binding: MessageListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -29,10 +33,12 @@ class MessageListFragment : Fragment() {
     ): View {
         _binding = MessageListFragmentBinding.inflate(inflater, container, false)
         viewModel.messages.observe(viewLifecycleOwner, { messages ->
-            Log.d(TAG, "onSuccess: ${messages.size}")
+            binding.messagesList.also {
+                it.layoutManager = LinearLayoutManager(requireContext())
+                it.setHasFixedSize(true)
+                it.adapter = MessageAdapter(messages, this)
+            }
         })
-        binding.buttonToMessageFragment.setOnClickListener { findNavController().navigate(R.id.action_messageListFragment_to_messageFragment) }
-        binding.buttonToNewMessageFragment.setOnClickListener { findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment) }
         return binding.root
     }
 
@@ -41,4 +47,10 @@ class MessageListFragment : Fragment() {
         _binding = null
     }
 
+    override fun onRecyclerViewItemClick(view: View, myMessage: MyMessage) {
+        if (!myMessage.equals(null)) {
+            val bundle = bundleOf("myMessage" to myMessage)
+            findNavController().navigate(R.id.action_messageListFragment_to_messageFragment, bundle)
+        }
+    }
 }
