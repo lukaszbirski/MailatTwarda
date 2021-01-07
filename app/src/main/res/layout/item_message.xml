@@ -12,7 +12,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -38,9 +38,9 @@
 
             <TextView
                 android:id="@+id/subject_message"
-                android:layout_width="280dp"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:text="@{message.title}"
+                android:text="@{message.title.length() > 70 ? message.title.substring(0, 74) : message.title}"
                 android:textStyle="normal"
                 tools:text="Some random information is displayed here." />
 
