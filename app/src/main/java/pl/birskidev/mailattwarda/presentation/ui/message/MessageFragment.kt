@@ -1,11 +1,14 @@
-package pl.birskidev.mailattwarda
+package pl.birskidev.mailattwarda.presentation.ui.message
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
+import pl.birskidev.mailattwarda.R
 
+@AndroidEntryPoint
 class MessageFragment : Fragment() {
 
     override fun onCreateView(

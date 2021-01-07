@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/messageListFragment"
-        android:name="pl.birskidev.mailattwarda.MessageListFragment"
+        android:name="pl.birskidev.mailattwarda.presentation.ui.message_list.MessageListFragment"
         android:label="MessageListFragment">
         <action
             android:id="@+id/action_messageListFragment_to_messageFragment"
@@ -26,11 +26,11 @@
     </fragment>
     <fragment
         android:id="@+id/messageFragment"
-        android:name="pl.birskidev.mailattwarda.MessageFragment"
+        android:name="pl.birskidev.mailattwarda.presentation.ui.message.MessageFragment"
         android:label="MessageFragment"></fragment>
     <fragment
         android:id="@+id/newMessageFragment"
-        android:name="pl.birskidev.mailattwarda.NewMessageFragment"
+        android:name="pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageFragment"
         android:label="fragment_new_message"
         tools:layout="@layout/fragment_new_message" />
 </navigation>
