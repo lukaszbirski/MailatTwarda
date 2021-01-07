@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/messageListFragment">
+
+    <fragment
+        android:id="@+id/messageListFragment"
+        android:name="pl.birskidev.mailattwarda.MessageListFragment"
+        android:label="MessageListFragment">
+        <action
+            android:id="@+id/action_messageListFragment_to_messageFragment"
+            app:destination="@+id/messageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_messageListFragment_to_newMessageFragment"
+            app:destination="@id/newMessageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="pl.birskidev.mailattwarda.MessageFragment"
+        android:label="MessageFragment"></fragment>
+    <fragment
+        android:id="@+id/newMessageFragment"
+        android:name="pl.birskidev.mailattwarda.NewMessageFragment"
+        android:label="fragment_new_message"
+        tools:layout="@layout/fragment_new_message" />
+</navigation>
