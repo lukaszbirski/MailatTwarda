@@ -32,7 +32,9 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = MessageListFragmentBinding.inflate(inflater, container, false)
-        binding.fab.setOnClickListener { findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
+        binding.fab.setOnClickListener {
+            viewModel.sendEmail()
+            findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
         viewModel.messages.observe(viewLifecycleOwner, { messages ->
             binding.messagesList.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
