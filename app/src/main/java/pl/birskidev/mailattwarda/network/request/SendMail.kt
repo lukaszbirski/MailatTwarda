@@ -4,5 +4,5 @@ import io.reactivex.Completable
 
 interface SendMail {
 
-    fun sendMail(email: String, subject: String, message: String): Completable
+    fun sendMail(emailTo: String, subject: String, message: String): Completable
 }

@@ -49,19 +49,9 @@ constructor(
         )
     }
 
-    fun sendEmail() {
-        disposable.add(
-            SendMailImp.sendMail("lukasz.birski@gmail.com", "TEST", "TEST")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableCompletableObserver() {
-                    override fun onComplete() {
-                    }
-
-                    override fun onError(e: Throwable?) {
-                    }
-
-                })
-        )
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
+
 }
