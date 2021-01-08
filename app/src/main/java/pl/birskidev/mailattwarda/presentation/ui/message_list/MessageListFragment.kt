@@ -1,7 +1,6 @@
 package pl.birskidev.mailattwarda.presentation.ui.message_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import pl.birskidev.mailattwarda.databinding.MessageListFragmentBinding
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.MessageAdapter
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.RecyclerViewClickListener
-import pl.birskidev.mailattwarda.util.TAG
 
 @AndroidEntryPoint
 class MessageListFragment : Fragment(), RecyclerViewClickListener {
@@ -33,7 +31,6 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
     ): View {
         _binding = MessageListFragmentBinding.inflate(inflater, container, false)
         binding.fab.setOnClickListener {
-            viewModel.sendEmail()
             findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
         viewModel.messages.observe(viewLifecycleOwner, { messages ->
             binding.messagesList.also {
