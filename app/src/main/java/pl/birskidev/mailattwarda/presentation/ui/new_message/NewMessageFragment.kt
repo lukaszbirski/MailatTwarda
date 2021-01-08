@@ -5,17 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import pl.birskidev.mailattwarda.R
+import pl.birskidev.mailattwarda.databinding.FragmentNewMessageBinding
 
 @AndroidEntryPoint
 class NewMessageFragment : Fragment() {
+
+    private var _binding: FragmentNewMessageBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_new_message, container, false)
+        _binding = FragmentNewMessageBinding.inflate(inflater, container, false)
+        val viewModel : NewMessageViewModel by viewModels()
+        binding.viewmodel = viewModel
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

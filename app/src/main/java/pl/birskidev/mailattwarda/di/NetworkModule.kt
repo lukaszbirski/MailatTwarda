@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
 import pl.birskidev.mailattwarda.network.mapper.util.MyMessageUtil
+import pl.birskidev.mailattwarda.network.request.SendMail
+import pl.birskidev.mailattwarda.network.request.SendMailImp
 import pl.birskidev.mailattwarda.network.response.FetchMails
 import pl.birskidev.mailattwarda.network.response.FetchMailsImpl
 import javax.inject.Singleton
@@ -30,6 +32,12 @@ object NetworkModule {
     @Provides
     fun provideMyMessageUtil() : MyMessageUtil {
         return MyMessageUtil()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSendMail() : SendMail {
+        return SendMailImp()
     }
 
 }
