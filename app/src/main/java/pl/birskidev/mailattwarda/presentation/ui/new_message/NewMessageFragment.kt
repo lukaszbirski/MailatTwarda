@@ -5,7 +5,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.FragmentNewMessageBinding
 
 @AndroidEntryPoint
