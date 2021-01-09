@@ -32,5 +32,15 @@
         android:id="@+id/newMessageFragment"
         android:name="pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageFragment"
         android:label="fragment_new_message"
-        tools:layout="@layout/fragment_new_message" />
+        tools:layout="@layout/fragment_new_message">
+        <action
+            android:id="@+id/action_newMessageFragment_to_messageListFragment"
+            app:destination="@id/messageListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/newMessageFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

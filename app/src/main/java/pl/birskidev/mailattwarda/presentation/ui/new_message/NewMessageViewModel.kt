@@ -3,6 +3,7 @@ package pl.birskidev.mailattwarda.presentation.ui.new_message
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
@@ -42,6 +43,8 @@ constructor(
                             }
                         })
         )
+
+        Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
     }
 
     override fun onCleared() {
