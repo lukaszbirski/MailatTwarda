@@ -12,61 +12,87 @@
     </data>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ScrollView
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme" >
 
-                <EditText
-                    android:id="@+id/to_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:ems="10"
-                    android:text="@={viewmodel.recipient}"
-                    android:hint="@string/to_hint"
-                    android:inputType="textEmailAddress" />
-
-                <EditText
-                    android:id="@+id/subject_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:text="@={viewmodel.subject}"
-                    android:ems="10"
-                    android:hint="@string/subject_hint"
-                    android:inputType="textEmailSubject" />
-
-                <EditText
-                    android:id="@+id/message_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:gravity="top"
-                    android:text="@={viewmodel.message}"
-                    android:hint="@string/message_hint"
-                    android:inputType="textMultiLine" />
-
-                <Button
+                <ImageButton
                     android:id="@+id/send_button"
-                    android:onClick="@{viewmodel::sendEmail}"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SEND"/>
+                    android:background="@null"
+                    android:layout_gravity="right"
+                    android:onClick="@{viewmodel::sendEmail}"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/send_icon"/>
 
-            </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
 
-        </ScrollView>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/to_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:ems="10"
+                        android:text="@={viewmodel.recipient}"
+                        android:hint="@string/to_hint"
+                        android:inputType="textEmailAddress" />
+
+                    <EditText
+                        android:id="@+id/subject_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:text="@={viewmodel.subject}"
+                        android:ems="10"
+                        android:hint="@string/subject_hint"
+                        android:inputType="textEmailSubject" />
+
+                    <EditText
+                        android:id="@+id/message_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="570dp"
+                        android:gravity="top"
+                        android:hint="@string/message_hint"
+                        android:inputType="textMultiLine"
+                        android:text="@={viewmodel.message}" />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
