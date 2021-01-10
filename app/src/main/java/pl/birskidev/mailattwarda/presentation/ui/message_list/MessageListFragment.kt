@@ -33,6 +33,7 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
         binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.loadingView.visibility = View.VISIBLE
             viewModel.fetchMails()
             binding.swipeRefreshLayout.isRefreshing = false
         }
@@ -41,6 +42,12 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
                 it.adapter = MessageAdapter(messages, this)
+            }
+            binding.messagesList.visibility = View.VISIBLE
+        })
+        viewModel.loading.observe(viewLifecycleOwner, { isLoading ->
+            isLoading?.let { binding.loadingView.visibility = if (it) View.VISIBLE else View.GONE
+            if (it) {binding.messagesList.visibility = View.GONE}
             }
         })
         return binding.root
