@@ -28,7 +28,7 @@ constructor(
         fetchMails()
     }
 
-    private fun fetchMails() {
+    fun fetchMails() {
         disposable.add(
             repository.fetchMails("", "")
                 ?.subscribeOn(Schedulers.io())
