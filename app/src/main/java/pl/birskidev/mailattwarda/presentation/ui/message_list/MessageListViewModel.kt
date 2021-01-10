@@ -24,11 +24,14 @@ constructor(
     private val _messages: MutableLiveData<List<MyMessage>> = MutableLiveData()
     val messages: LiveData<List<MyMessage>> get() = _messages
 
+    val loading = MutableLiveData<Boolean>()
+
     init {
         fetchMails()
     }
 
-    private fun fetchMails() {
+    fun fetchMails() {
+        loading.postValue(true)
         disposable.add(
             repository.fetchMails("", "")
                 ?.subscribeOn(Schedulers.io())
@@ -37,6 +40,7 @@ constructor(
                     override fun onSuccess(t: List<MyMessage>) {
                         Log.d(TAG, "onSuccess: ${t.size}")
                         _messages.postValue(t)
+                        loading.postValue(false)
                     }
 
                     override fun onError(e: Throwable) {
