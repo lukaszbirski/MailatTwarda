@@ -35,7 +35,7 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
             findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.loadingView.visibility = View.VISIBLE
-//            viewModel.fetchMails()
+            viewModel.fetchMails()
             binding.swipeRefreshLayout.isRefreshing = false
         }
         viewModel.chips.observe(viewLifecycleOwner, { chips ->

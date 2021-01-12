@@ -23,7 +23,7 @@ class ChipMapper : DomainMapper<Int, List<MyChip>> {
             var myChip = MyChip()
             myChip.firstNumber = firstNumbersList[i-1]
             myChip.lastNumber = lastNumbersList[i-1]
-            myChip.displayedNumber = i
+            myChip.displayedNumber = i.toString()
             chips.add(myChip)
         }
 

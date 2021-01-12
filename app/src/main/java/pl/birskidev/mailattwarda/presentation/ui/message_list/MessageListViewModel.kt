@@ -34,28 +34,28 @@ constructor(
 
     init {
         fetchNumberOfMails()
-//        fetchMails()
+        fetchMails()
     }
 
-//    fun fetchMails() {
-//        loading.postValue(true)
-//        disposable.add(
-//            repository.fetchMails("", "")
-//                ?.subscribeOn(Schedulers.io())
-//                ?.observeOn(AndroidSchedulers.mainThread())
-//                ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
-//                    override fun onSuccess(t: List<MyMessage>) {
-//                        Log.d(TAG, "onSuccess: ${t.size}")
-//                        _messages.postValue(t)
-//                        loading.postValue(false)
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        Log.d(TAG, "onError: ")
-//                    }
-//                })
-//        )
-//    }
+    fun fetchMails() {
+        loading.postValue(true)
+        disposable.add(
+            repository.fetchMails("", "")
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
+                    override fun onSuccess(t: List<MyMessage>) {
+                        Log.d(TAG, "onSuccess: ${t.size}")
+                        _messages.postValue(t)
+                        loading.postValue(false)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Log.d(TAG, "onError: ")
+                    }
+                })
+        )
+    }
 
     private fun fetchNumberOfMails() {
         disposable.add(

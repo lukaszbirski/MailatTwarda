@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="26sp"
                 android:textStyle="bold"
+                android:text="@{chip.displayedNumber}"
                 tools:text="1" />
 
         </LinearLayout>
