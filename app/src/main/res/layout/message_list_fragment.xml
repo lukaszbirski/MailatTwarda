@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutForeMessages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="100" >
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
@@ -29,6 +30,7 @@
                 android:theme="?attr/actionBarTheme">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/chips_list"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="20dp"
@@ -44,7 +46,7 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="670dp"
+            android:layout_height="680dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

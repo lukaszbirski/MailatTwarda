@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.MessageListFragmentBinding
 import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.ChipAdapter
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.MessageAdapter
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.RecyclerViewClickListener
 
@@ -34,9 +35,16 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
             findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.loadingView.visibility = View.VISIBLE
-            viewModel.fetchMails()
+//            viewModel.fetchMails()
             binding.swipeRefreshLayout.isRefreshing = false
         }
+        viewModel.chips.observe(viewLifecycleOwner, { chips ->
+            binding.chipsList.also {
+                it.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                it.setHasFixedSize(true)
+                it.adapter = ChipAdapter(chips)
+            }
+        })
         viewModel.messages.observe(viewLifecycleOwner, { messages ->
             binding.messagesList.also {
                 it.layoutManager = LinearLayoutManager(requireContext())

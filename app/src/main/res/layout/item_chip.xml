@@ -15,8 +15,9 @@
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="#2238BD"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        app:cardBackgroundColor="#393A3E"
         app:cardCornerRadius="20dp"
         android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical">
@@ -32,7 +33,6 @@
                 android:id="@+id/from_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{chip.displayedNumber}"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 tools:text="1" />

@@ -27,32 +27,35 @@ constructor(
     private val _messages: MutableLiveData<List<MyMessage>> = MutableLiveData()
     val messages: LiveData<List<MyMessage>> get() = _messages
 
+    private val _chips: MutableLiveData<List<MyChip>> = MutableLiveData()
+    val chips: LiveData<List<MyChip>> get() = _chips
+
     val loading = MutableLiveData<Boolean>()
 
     init {
         fetchNumberOfMails()
-        fetchMails()
+//        fetchMails()
     }
 
-    fun fetchMails() {
-        loading.postValue(true)
-        disposable.add(
-            repository.fetchMails("", "")
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
-                    override fun onSuccess(t: List<MyMessage>) {
-                        Log.d(TAG, "onSuccess: ${t.size}")
-                        _messages.postValue(t)
-                        loading.postValue(false)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d(TAG, "onError: ")
-                    }
-                })
-        )
-    }
+//    fun fetchMails() {
+//        loading.postValue(true)
+//        disposable.add(
+//            repository.fetchMails("", "")
+//                ?.subscribeOn(Schedulers.io())
+//                ?.observeOn(AndroidSchedulers.mainThread())
+//                ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
+//                    override fun onSuccess(t: List<MyMessage>) {
+//                        Log.d(TAG, "onSuccess: ${t.size}")
+//                        _messages.postValue(t)
+//                        loading.postValue(false)
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        Log.d(TAG, "onError: ")
+//                    }
+//                })
+//        )
+//    }
 
     private fun fetchNumberOfMails() {
         disposable.add(
@@ -62,6 +65,7 @@ constructor(
                         ?.subscribeWith(object : DisposableSingleObserver<List<MyChip>>() {
                             override fun onSuccess(value: List<MyChip>?) {
                                 Log.d(TAG, "onSuccess: ${value?.size}")
+                                _chips.postValue(value)
                             }
 
                             override fun onError(e: Throwable?) {
