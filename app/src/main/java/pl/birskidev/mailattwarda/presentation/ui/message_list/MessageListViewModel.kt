@@ -9,14 +9,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
+import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
 import pl.birskidev.mailattwarda.util.TAG
 
 class MessageListViewModel
 @ViewModelInject
 constructor(
-    private val repository: FetchMailsRepository
+    private val repository: FetchMailsRepository,
+    private val numberOfMailsRepository: FetchingNumberOfMailsRepository
 ): ViewModel() {
 
     private val disposable = CompositeDisposable()
@@ -27,6 +30,7 @@ constructor(
     val loading = MutableLiveData<Boolean>()
 
     init {
+        fetchNumberOfMails()
         fetchMails()
     }
 
@@ -47,6 +51,24 @@ constructor(
                         Log.d(TAG, "onError: ")
                     }
                 })
+        )
+    }
+
+    private fun fetchNumberOfMails() {
+        disposable.add(
+                numberOfMailsRepository.fetchNumberOfMails("", "")
+                        ?.subscribeOn(Schedulers.io())
+                        ?.observeOn(AndroidSchedulers.mainThread())
+                        ?.subscribeWith(object : DisposableSingleObserver<List<MyChip>>() {
+                            override fun onSuccess(value: List<MyChip>?) {
+                                Log.d(TAG, "onSuccess: ${value?.size}")
+                            }
+
+                            override fun onError(e: Throwable?) {
+
+                            }
+
+                        })
         )
     }
 
