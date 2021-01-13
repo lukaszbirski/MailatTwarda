@@ -13,6 +13,8 @@ class ChipAdapter(
         private val listener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<ChipAdapter.ChipViewHolder>(){
 
+    private var checked = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ChipViewHolder(
                     DataBindingUtil.inflate<ItemChipBinding>(
@@ -25,8 +27,10 @@ class ChipAdapter(
 
     override fun onBindViewHolder(holder: ChipViewHolder, position: Int) {
         holder.recyclerViewMyChipBinding.chip = chips[position]
+        holder.bind(chips[position], position)
         holder.recyclerViewMyChipBinding.root.setOnClickListener {
             listener.onRecyclerViewItemClick(holder.recyclerViewMyChipBinding.root, chips[position])
+            holder.check(position)
         }
     }
 
@@ -36,6 +40,14 @@ class ChipAdapter(
             val recyclerViewMyChipBinding: ItemChipBinding
     ) : RecyclerView.ViewHolder(recyclerViewMyChipBinding.root) {
 
+        fun check(position: Int) {
+            checked = position
+        }
+
+        fun bind(myChip: MyChip, position: Int) {
+            if (position == checked) myChip.isChecked = true
+            if (position != checked) myChip.isChecked = false
+        }
     }
 
 }

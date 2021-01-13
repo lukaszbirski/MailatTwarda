@@ -77,7 +77,6 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
                 }
             }
             is MyChip -> {
-                any.isChecked = true
                 binding.chipsList.adapter?.notifyDataSetChanged()
             }
         }
