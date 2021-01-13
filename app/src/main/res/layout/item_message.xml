@@ -40,7 +40,7 @@
                 android:id="@+id/subject_message"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:text="@{message.title.length() > 70 ? message.title.substring(0, 74) : message.title}"
+                android:text="@{message.title.length() > 70 ? message.title.substring(0, 69) : message.title}"
                 android:textStyle="normal"
                 tools:text="Some random information is displayed here." />
 

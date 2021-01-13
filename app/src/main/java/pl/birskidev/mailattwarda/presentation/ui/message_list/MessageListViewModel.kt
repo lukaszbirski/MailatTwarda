@@ -34,13 +34,17 @@ constructor(
 
     init {
         fetchNumberOfMails()
-        fetchMails()
+        refresh()
     }
 
-    fun fetchMails() {
+    private fun refresh() {
+        fetchMails(1, 20)
+    }
+
+    fun fetchMails(first: Int, last: Int) {
         loading.postValue(true)
         disposable.add(
-            repository.fetchMails("", "")
+            repository.fetchMails("", "", first, last)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {

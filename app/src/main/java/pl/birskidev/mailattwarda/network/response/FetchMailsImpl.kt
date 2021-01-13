@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
 
 class FetchMailsImpl : FetchMails {
 
-    override fun fetchingMails(username: String, password: String): Single<List<Message>> {
+    override fun fetchingMails(username: String, password: String, first: Int, last: Int): Single<List<Message>> {
         val props = Properties()
 
         // Connect to the POP3 server
@@ -27,7 +27,7 @@ class FetchMailsImpl : FetchMails {
         val total = inbox.messageCount
 
         // Get the messages from the server
-        val messagesInReverse: Array<Message> = inbox.getMessages(total - 20 + 1, total)
+        val messagesInReverse: Array<Message> = inbox.getMessages(first, last)
         val messages: Array<Message> = messagesInReverse.reversedArray()
 
         // Close the connection

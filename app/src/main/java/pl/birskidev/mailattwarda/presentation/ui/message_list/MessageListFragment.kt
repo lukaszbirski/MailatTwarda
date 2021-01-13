@@ -35,11 +35,6 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
         _binding = MessageListFragmentBinding.inflate(inflater, container, false)
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.loadingView.visibility = View.VISIBLE
-            viewModel.fetchMails()
-            binding.swipeRefreshLayout.isRefreshing = false
-        }
         viewModel.chips.observe(viewLifecycleOwner, { chips ->
             binding.chipsList.also {
                 it.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -78,6 +73,9 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
             }
             is MyChip -> {
                 binding.chipsList.adapter?.notifyDataSetChanged()
+                viewModel.fetchMails(any.firstNumber, any.lastNumber)
+                binding.loadingView.visibility = View.VISIBLE
+                binding.messagesList.adapter?.notifyDataSetChanged()
             }
         }
     }
