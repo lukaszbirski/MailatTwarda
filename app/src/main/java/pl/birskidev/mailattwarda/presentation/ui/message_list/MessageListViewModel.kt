@@ -38,7 +38,7 @@ constructor(
     }
 
     private fun refresh() {
-        fetchMails(1, 20)
+        fetchMails(1, 15)
     }
 
     fun fetchMails(first: Int, last: Int) {

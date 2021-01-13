@@ -27,7 +27,7 @@ class FetchMailsImpl : FetchMails {
         val total = inbox.messageCount
 
         // Get the messages from the server
-        val messagesInReverse: Array<Message> = inbox.getMessages(first, last)
+        val messagesInReverse: Array<Message> = inbox.getMessages(total - last + 1, total - first + 1)
         val messages: Array<Message> = messagesInReverse.reversedArray()
 
         // Close the connection

@@ -11,10 +11,10 @@ class ChipMapper : DomainMapper<Int, List<MyChip>> {
         var lastNumbersList: MutableList<Int> = mutableListOf()
 
         for (i in 1..entity) {
-            if (i%20 == 1) {
+            if (i%15 == 1) {
                 firstNumbersList.add(i)
             }
-            if (i%20 == 0 || i == entity) {
+            if (i%15 == 0 || i == entity) {
                 lastNumbersList.add(i)
             }
         }
