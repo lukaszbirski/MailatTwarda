@@ -11,9 +11,9 @@ class FetchMailsRepositoryImpl(
     private val mapper: MessageDtoMapper
 ) : FetchMailsRepository {
 
-    override fun fetchMails(username: String, password: String): Single<List<MyMessage>> {
+    override fun fetchMails(username: String, password: String, first: Int, last: Int): Single<List<MyMessage>> {
         return Single.just(
-            mapper.mapToDomainModelList(fetchMails.fetchingMails(username, password)
+            mapper.mapToDomainModelList(fetchMails.fetchingMails(username, password, first, last)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .blockingGet()

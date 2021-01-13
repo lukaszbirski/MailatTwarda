@@ -9,14 +9,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
+import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
 import pl.birskidev.mailattwarda.util.TAG
 
 class MessageListViewModel
 @ViewModelInject
 constructor(
-    private val repository: FetchMailsRepository
+    private val repository: FetchMailsRepository,
+    private val numberOfMailsRepository: FetchingNumberOfMailsRepository
 ): ViewModel() {
 
     private val disposable = CompositeDisposable()
@@ -24,16 +27,24 @@ constructor(
     private val _messages: MutableLiveData<List<MyMessage>> = MutableLiveData()
     val messages: LiveData<List<MyMessage>> get() = _messages
 
+    private val _chips: MutableLiveData<List<MyChip>> = MutableLiveData()
+    val chips: LiveData<List<MyChip>> get() = _chips
+
     val loading = MutableLiveData<Boolean>()
 
     init {
-        fetchMails()
+        fetchNumberOfMails()
+        refresh()
     }
 
-    fun fetchMails() {
+    private fun refresh() {
+        fetchMails(1, 15)
+    }
+
+    fun fetchMails(first: Int, last: Int) {
         loading.postValue(true)
         disposable.add(
-            repository.fetchMails("", "")
+            repository.fetchMails("", "", first, last)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
@@ -47,6 +58,25 @@ constructor(
                         Log.d(TAG, "onError: ")
                     }
                 })
+        )
+    }
+
+    private fun fetchNumberOfMails() {
+        disposable.add(
+                numberOfMailsRepository.fetchNumberOfMails("", "")
+                        ?.subscribeOn(Schedulers.io())
+                        ?.observeOn(AndroidSchedulers.mainThread())
+                        ?.subscribeWith(object : DisposableSingleObserver<List<MyChip>>() {
+                            override fun onSuccess(value: List<MyChip>?) {
+                                Log.d(TAG, "onSuccess: ${value?.size}")
+                                _chips.postValue(value)
+                            }
+
+                            override fun onError(e: Throwable?) {
+
+                            }
+
+                        })
         )
     }
 

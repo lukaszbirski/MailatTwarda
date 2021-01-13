@@ -4,12 +4,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import pl.birskidev.mailattwarda.network.mapper.ChipMapper
 import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
 import pl.birskidev.mailattwarda.network.mapper.util.MyMessageUtil
 import pl.birskidev.mailattwarda.network.request.SendMail
 import pl.birskidev.mailattwarda.network.request.SendMailImp
 import pl.birskidev.mailattwarda.network.response.FetchMails
 import pl.birskidev.mailattwarda.network.response.FetchMailsImpl
+import pl.birskidev.mailattwarda.network.response.FetchNumberOfMails
+import pl.birskidev.mailattwarda.network.response.FetchNumberOfMailsImpl
 import javax.inject.Singleton
 
 @Module
@@ -20,6 +23,12 @@ object NetworkModule {
     @Provides
     fun provideMessageDtoMapper(myMessageUtil: MyMessageUtil) : MessageDtoMapper {
         return MessageDtoMapper(myMessageUtil)
+    }
+
+    @Singleton
+    @Provides
+    fun provideChipMapper() : ChipMapper {
+        return ChipMapper()
     }
 
     @Singleton
@@ -40,4 +49,9 @@ object NetworkModule {
         return SendMailImp()
     }
 
+    @Singleton
+    @Provides
+    fun provideFetchingNumberOfMails() : FetchNumberOfMails {
+        return FetchNumberOfMailsImpl()
+    }
 }

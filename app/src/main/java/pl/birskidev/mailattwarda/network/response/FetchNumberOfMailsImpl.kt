@@ -5,14 +5,13 @@ import pl.birskidev.mailattwarda.util.pop3Host
 import pl.birskidev.mailattwarda.util.provider
 import java.util.*
 import javax.mail.Folder
-import javax.mail.Message
 import javax.mail.Session
 import javax.mail.Store
 import kotlin.system.exitProcess
 
-class FetchMailsImpl : FetchMails {
+class FetchNumberOfMailsImpl  : FetchNumberOfMails {
 
-    override fun fetchingMails(username: String, password: String, first: Int, last: Int): Single<List<Message>> {
+    override fun fetchingNumberOfMails(username: String, password: String): Single<Int> {
         val props = Properties()
 
         // Connect to the POP3 server
@@ -26,15 +25,11 @@ class FetchMailsImpl : FetchMails {
 
         val total = inbox.messageCount
 
-        // Get the messages from the server
-        val messagesInReverse: Array<Message> = inbox.getMessages(total - last + 1, total - first + 1)
-        val messages: Array<Message> = messagesInReverse.reversedArray()
+        inbox.close(false)
+        store.close()
 
-        // Close the connection
-        // but don't remove the messages from the server
-//        inbox.close(false)
-//        store.close()
-        return Single.just(mutableListOf(*messages))
+        return Single.just(total)
     }
+
 
 }

@@ -1,6 +1,7 @@
 package pl.birskidev.mailattwarda.presentation.ui.message_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.MessageListFragmentBinding
+import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.ChipAdapter
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.MessageAdapter
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.RecyclerViewClickListener
 
@@ -32,11 +35,13 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
         _binding = MessageListFragmentBinding.inflate(inflater, container, false)
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.loadingView.visibility = View.VISIBLE
-            viewModel.fetchMails()
-            binding.swipeRefreshLayout.isRefreshing = false
-        }
+        viewModel.chips.observe(viewLifecycleOwner, { chips ->
+            binding.chipsList.also {
+                it.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                it.setHasFixedSize(true)
+                it.adapter = ChipAdapter(chips, this)
+            }
+        })
         viewModel.messages.observe(viewLifecycleOwner, { messages ->
             binding.messagesList.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
@@ -58,10 +63,20 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
         _binding = null
     }
 
-    override fun onRecyclerViewItemClick(view: View, myMessage: MyMessage) {
-        if (!myMessage.equals(null)) {
-            val bundle = bundleOf("myMessage" to myMessage)
-            findNavController().navigate(R.id.action_messageListFragment_to_messageFragment, bundle)
+    override fun onRecyclerViewItemClick(view: View, any: Any) {
+        when (any) {
+            is MyMessage -> {
+                if (!any.equals(null)) {
+                    val bundle = bundleOf("myMessage" to any)
+                    findNavController().navigate(R.id.action_messageListFragment_to_messageFragment, bundle)
+                }
+            }
+            is MyChip -> {
+                binding.chipsList.adapter?.notifyDataSetChanged()
+                viewModel.fetchMails(any.firstNumber, any.lastNumber)
+                binding.loadingView.visibility = View.VISIBLE
+                binding.messagesList.adapter?.notifyDataSetChanged()
+            }
         }
     }
 }
