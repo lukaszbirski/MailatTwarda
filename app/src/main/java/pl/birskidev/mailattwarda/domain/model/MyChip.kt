@@ -8,4 +8,5 @@ data class MyChip (
         var displayedNumber: String = "1",
         var firstNumber: Int = 1,
         var lastNumber: Int = 20,
+        var isChecked: Boolean = false
 ) : Parcelable

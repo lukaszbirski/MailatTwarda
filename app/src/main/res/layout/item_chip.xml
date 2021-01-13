@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:orientation="vertical" >
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/from_message"
@@ -37,6 +37,16 @@
                 android:textStyle="bold"
                 android:text="@{chip.displayedNumber}"
                 tools:text="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chip_imageView"
+                android:src="@drawable/check"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="6dp"
+                android:visibility="@{chip.checked ? View.VISIBLE : View.GONE}"
+                />
 
         </LinearLayout>
 

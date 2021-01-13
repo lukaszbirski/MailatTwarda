@@ -9,7 +9,8 @@ import pl.birskidev.mailattwarda.databinding.ItemChipBinding
 import pl.birskidev.mailattwarda.domain.model.MyChip
 
 class ChipAdapter(
-        private val chips: List<MyChip>
+        private val chips: List<MyChip>,
+        private val listener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<ChipAdapter.ChipViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -24,6 +25,9 @@ class ChipAdapter(
 
     override fun onBindViewHolder(holder: ChipViewHolder, position: Int) {
         holder.recyclerViewMyChipBinding.chip = chips[position]
+        holder.recyclerViewMyChipBinding.root.setOnClickListener {
+            listener.onRecyclerViewItemClick(holder.recyclerViewMyChipBinding.root, chips[position])
+        }
     }
 
     override fun getItemCount() = chips.size

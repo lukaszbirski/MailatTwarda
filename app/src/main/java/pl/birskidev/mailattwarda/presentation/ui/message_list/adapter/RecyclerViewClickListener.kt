@@ -5,5 +5,5 @@ import pl.birskidev.mailattwarda.domain.model.MyMessage
 
 interface RecyclerViewClickListener {
 
-    fun onRecyclerViewItemClick(view: View, myMessage: MyMessage)
+    fun onRecyclerViewItemClick(view: View, any: Any)
 }

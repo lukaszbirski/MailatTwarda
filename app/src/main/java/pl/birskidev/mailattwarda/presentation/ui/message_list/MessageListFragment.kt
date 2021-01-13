@@ -1,6 +1,7 @@
 package pl.birskidev.mailattwarda.presentation.ui.message_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.MessageListFragmentBinding
+import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.ChipAdapter
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.MessageAdapter
@@ -42,7 +44,7 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
             binding.chipsList.also {
                 it.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 it.setHasFixedSize(true)
-                it.adapter = ChipAdapter(chips)
+                it.adapter = ChipAdapter(chips, this)
             }
         })
         viewModel.messages.observe(viewLifecycleOwner, { messages ->
@@ -66,10 +68,18 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
         _binding = null
     }
 
-    override fun onRecyclerViewItemClick(view: View, myMessage: MyMessage) {
-        if (!myMessage.equals(null)) {
-            val bundle = bundleOf("myMessage" to myMessage)
-            findNavController().navigate(R.id.action_messageListFragment_to_messageFragment, bundle)
+    override fun onRecyclerViewItemClick(view: View, any: Any) {
+        when (any) {
+            is MyMessage -> {
+                if (!any.equals(null)) {
+                    val bundle = bundleOf("myMessage" to any)
+                    findNavController().navigate(R.id.action_messageListFragment_to_messageFragment, bundle)
+                }
+            }
+            is MyChip -> {
+                any.isChecked = true
+                binding.chipsList.adapter?.notifyDataSetChanged()
+            }
         }
     }
 }
