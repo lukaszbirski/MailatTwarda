@@ -30,7 +30,7 @@ constructor(
             callback.toastMessage(view, view.context.resources.getString(R.string.address_required_string))
             return
         }
-        if (subject.isNullOrEmpty()) subject = R.string.no_topic_string.toString()
+        if (subject.isNullOrEmpty()) subject = view.context.resources.getString(R.string.no_topic_string)
         if (message.isNullOrEmpty()) message = ""
 
         disposable.add(
