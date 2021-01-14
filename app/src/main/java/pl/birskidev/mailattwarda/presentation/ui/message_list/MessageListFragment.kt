@@ -1,7 +1,6 @@
 package pl.birskidev.mailattwarda.presentation.ui.message_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

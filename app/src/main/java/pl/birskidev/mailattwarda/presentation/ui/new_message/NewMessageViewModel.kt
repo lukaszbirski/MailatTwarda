@@ -22,10 +22,12 @@ constructor(
     var recipient: String? = null
     var subject: String? = null
     var message: String? = null
+    private var callback: NewMessageListener = NewMessageFragment()
 
     fun sendEmail(view: View) {
 
         if (recipient.isNullOrEmpty()) {
+            callback.toastMessage(view, view.context.resources.getString(R.string.address_required_string))
             return
         }
         if (subject.isNullOrEmpty()) subject = R.string.no_topic_string.toString()
@@ -37,9 +39,11 @@ constructor(
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(object : DisposableCompletableObserver() {
                             override fun onComplete() {
+                                callback.toastMessage(view, view.context.resources.getString(R.string.email_was_sent_string))
                             }
 
                             override fun onError(e: Throwable?) {
+                                callback.toastMessage(view, view.context.resources.getString(R.string.error_while_sending_email))
                             }
                         })
         )
