@@ -71,9 +71,9 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
                 }
             }
             is MyChip -> {
+                binding.loadingView.visibility = View.VISIBLE
                 binding.chipsList.adapter?.notifyDataSetChanged()
                 viewModel.fetchMails(any.firstNumber, any.lastNumber)
-                binding.loadingView.visibility = View.VISIBLE
                 binding.messagesList.adapter?.notifyDataSetChanged()
             }
         }

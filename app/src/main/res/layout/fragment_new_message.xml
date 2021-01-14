@@ -4,28 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="viewmodel"
             type="pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutForeMessages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray_500"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme">
@@ -44,61 +46,73 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/gray_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBar">
 
-            <EditText
-                android:id="@+id/to_edittext"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:ems="10"
-                android:hint="@string/to_hint"
-                android:backgroundTint="@color/black"
-                android:inputType="textEmailAddress"
-                android:text="@={viewmodel.recipient}" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/subject_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:ems="10"
-                android:hint="@string/subject_hint"
-                android:inputType="textEmailSubject"
-                android:backgroundTint="@color/black"
-                android:text="@={viewmodel.subject}" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
+                <EditText
+                    android:id="@+id/to_edittext"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="@string/to_hint"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewmodel.recipient}" />
 
-                    <EditText
-                        android:id="@+id/message_edittext"
+                <EditText
+                    android:id="@+id/subject_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:backgroundTint="@color/black"
+                    android:ems="10"
+                    android:hint="@string/subject_hint"
+                    android:inputType="textEmailSubject"
+                    android:text="@={viewmodel.subject}" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="top"
-                        android:hint="@string/message_hint"
-                        android:inputType="textMultiLine"
-                        android:backgroundTint="@color/black"
-                        android:text="@={viewmodel.message}" />
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <EditText
+                            android:id="@+id/message_edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/black"
+                            android:gravity="top"
+                            android:hint="@string/message_hint"
+                            android:inputType="textMultiLine"
+                            android:text="@={viewmodel.message}" />
 
-            </ScrollView>
+                    </LinearLayout>
 
-        </LinearLayout>
+                </ScrollView>
 
-    </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
