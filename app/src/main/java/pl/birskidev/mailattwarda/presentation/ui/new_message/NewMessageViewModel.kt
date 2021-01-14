@@ -22,28 +22,35 @@ constructor(
     var recipient: String? = null
     var subject: String? = null
     var message: String? = null
+    private var callback: NewMessageListener = NewMessageFragment()
 
     fun sendEmail(view: View) {
 
         if (recipient.isNullOrEmpty()) {
+            callback.toastMessage(view, view.context.resources.getString(R.string.address_required_string))
             return
         }
-        if (subject.isNullOrEmpty()) subject = R.string.no_topic_string.toString()
+        if (subject.isNullOrEmpty()) subject = view.context.resources.getString(R.string.no_topic_string)
         if (message.isNullOrEmpty()) message = ""
 
+        callback.setProgressDialog(view)
         disposable.add(
                 sendMail.sendMail(recipient.toString(), subject.toString(), message.toString())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(object : DisposableCompletableObserver() {
                             override fun onComplete() {
+                                callback.dismissProgressDialog(view)
+                                callback.toastMessage(view, view.context.resources.getString(R.string.email_was_sent_string))
                             }
 
                             override fun onError(e: Throwable?) {
+                                callback.dismissProgressDialog(view)
+                                callback.toastMessage(view, view.context.resources.getString(R.string.error_while_sending_email))
                             }
                         })
         )
-
+        Thread.sleep(1000)
         Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
     }
 
