@@ -47,7 +47,7 @@ constructor(
                             }
                         })
         )
-
+        Thread.sleep(1000)
         Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
     }
 
