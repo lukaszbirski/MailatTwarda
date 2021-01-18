@@ -12,9 +12,9 @@ class MessageDtoMapper(myMessageUtil: MyMessageUtil) : DomainMapper<Message, MyM
     override fun mapToDomainModel(entity: Message): MyMessage {
         return MyMessage(
             title = entity.subject,
-            content = null,
+            content = myMessageUtil.getTextFromMessage(entity),
             sender = myMessageUtil.formatEmail(entity.from[0].toString()),
-            recipients = listOf(),
+            recipients = myMessageUtil.getToRecipients(entity),
             date = myMessageUtil.formatDate(entity.sentDate),
             time = myMessageUtil.formatTime(entity.sentDate),
             hasAttachments = myMessageUtil.hasAttachments(entity)

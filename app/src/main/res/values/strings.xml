@@ -11,4 +11,6 @@
     <string name="email_was_sent_string">E-mail was sent!</string>
     <string name="error_while_sending_email">Error occurred while sending message!</string>
     <string name="sending_string">Sending...</string>
+    <string name="from_string">From: %s</string>
+    <string name="to_string">To: %s</string>
 </resources>
