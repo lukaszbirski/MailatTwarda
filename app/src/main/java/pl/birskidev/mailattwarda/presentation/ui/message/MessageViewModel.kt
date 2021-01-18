@@ -1,12 +1,10 @@
 package pl.birskidev.mailattwarda.presentation.ui.message
 
-import android.util.Log
-import android.view.View
-import androidx.hilt.Assisted
+import android.text.Spanned
+import androidx.core.text.HtmlCompat
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 
@@ -20,6 +18,26 @@ constructor(): ViewModel() {
 
     fun selectMessage(myMessage: MyMessage) {
         mutableSelectedMessage.value = myMessage
+    }
+
+    fun getFrom(): String {
+        return "${selectedMessage.value?.sender.toString()}"
+    }
+
+    fun getDate(): String {
+        return "${selectedMessage.value?.date.toString()}"
+    }
+
+    fun getTime(): String {
+        return "${selectedMessage.value?.time.toString()}"
+    }
+
+    fun getRecipients(): String {
+        return "${selectedMessage.value?.recipients.toString()}"
+    }
+
+    fun getMessageContent(): Spanned {
+        return HtmlCompat.fromHtml(selectedMessage.value?.content.toString(), 0)
     }
 
     init {
