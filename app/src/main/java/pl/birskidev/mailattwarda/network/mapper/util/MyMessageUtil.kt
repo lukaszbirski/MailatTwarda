@@ -2,7 +2,10 @@ package pl.birskidev.mailattwarda.network.mapper.util
 
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.mail.*
+import javax.mail.BodyPart
+import javax.mail.Message
+import javax.mail.MessagingException
+import javax.mail.Multipart
 import javax.mail.internet.ContentType
 import javax.mail.internet.MimeMultipart
 
@@ -90,21 +93,16 @@ class MyMessageUtil {
         return result
     }
 
-    fun getToRecipients(recipients: Array<Address>): List<String> {
+    fun getToRecipients(message: Message): List<String>? {
         val toAddresses: MutableList<String> = ArrayList()
-        for (address in recipients) {
-            toAddresses.add(address.toString())
-        }
+        val recipients = message.getRecipients(Message.RecipientType.TO)
+        return if (recipients != null) {
+            for (address in recipients) {
+                formatEmail(address.toString())?.let { toAddresses.add(it) }
+            }
+            toAddresses
+        } else null
 
-        return toAddresses
-    }
-
-    fun getAllRecipients(recipients: Array<Address>): String? {
-        var recipientsString = ""
-        for (recipient in recipients) {
-            recipientsString = "${recipientsString}, ${formatEmail(recipient.toString())}"
-        }
-        return recipientsString.substring(2)
     }
 
 }

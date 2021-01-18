@@ -87,8 +87,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
+                        android:visibility="@{viewmodel.recipients == `null` ? View.GONE : View.VISIBLE}"
                         tools:text="to Robert Jackson"
-                        android:text="@{viewmodel.recipients}"/>
+                        android:text="@{@string/to_string(viewmodel.recipients)}"
+                        />
 
                     <TextView
                         android:id="@+id/message_date_textview"

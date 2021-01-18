@@ -33,7 +33,11 @@ constructor(): ViewModel() {
     }
 
     fun getRecipients(): String {
-        return "${selectedMessage.value?.recipients.toString()}"
+        var recipientsString = ""
+        for (recipient in selectedMessage.value?.recipients!!) {
+            recipientsString = "$recipientsString; $recipient"
+        }
+        return recipientsString.substring(2)
     }
 
     fun getMessageContent(): Spanned {
