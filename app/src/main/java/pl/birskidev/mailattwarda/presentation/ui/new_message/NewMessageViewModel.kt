@@ -27,8 +27,8 @@ constructor(
 
     fun selectMessage(myMessage: MyMessage) {
         recipient = myMessage.sender
-        subject = myMessage.title
-        message = myMessage.content
+        subject = "RE: ${myMessage.title}"
+        message = createTemplateRespond(myMessage)
     }
 
     fun sendEmail(view: View) {
@@ -68,6 +68,15 @@ constructor(
         )
         Thread.sleep(1000)
         Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
+    }
+
+    private fun createTemplateRespond(myMessage: MyMessage): String {
+
+        return "\n\n-----Original Message-----\nFrom: ${myMessage.sender}\n" +
+                "Sent: ${myMessage.date},${myMessage.time}\n" +
+                "Subject: ${myMessage.title}\n" +
+                "To: ${myMessage.recipients.toString()}\n\n" +
+                "${myMessage.content}"
     }
 
     override fun onCleared() {
