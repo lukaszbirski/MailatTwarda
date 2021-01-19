@@ -41,6 +41,7 @@
                     android:layout_gravity="right"
                     android:layout_marginRight="10dp"
                     android:background="@null"
+                    android:onClick="@{viewmodel::respondToMessage}"
                     android:src="@drawable/reply" />
 
             </androidx.appcompat.widget.Toolbar>
