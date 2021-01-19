@@ -1,11 +1,18 @@
 package pl.birskidev.mailattwarda.presentation.ui.message
 
 import android.text.Spanned
+import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableCompletableObserver
+import io.reactivex.schedulers.Schedulers
+import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 
 
@@ -32,8 +39,10 @@ constructor(): ViewModel() {
         return "${selectedMessage.value?.time.toString()}"
     }
 
-    fun getRecipients(): String {
+    fun getRecipients(): String? {
         var recipientsString = ""
+        if (selectedMessage.value?.recipients.isNullOrEmpty()) return recipientsString
+
         for (recipient in selectedMessage.value?.recipients!!) {
             recipientsString = "$recipientsString; $recipient"
         }
@@ -44,8 +53,9 @@ constructor(): ViewModel() {
         return HtmlCompat.fromHtml(selectedMessage.value?.content.toString(), 0)
     }
 
-    init {
-
+    fun respondToMessage(view: View){
+        val bundle = bundleOf("myMessage" to selectedMessage.value)
+        Navigation.findNavController(view).navigate(R.id.action_messageFragment_to_newMessageFragment, bundle)
     }
 
 }

@@ -27,7 +27,15 @@
     <fragment
         android:id="@+id/messageFragment"
         android:name="pl.birskidev.mailattwarda.presentation.ui.message.MessageFragment"
-        android:label="MessageFragment"></fragment>
+        android:label="MessageFragment">
+        <action
+            android:id="@+id/action_messageFragment_to_newMessageFragment"
+            app:destination="@id/newMessageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/newMessageFragment"
         android:name="pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageFragment"

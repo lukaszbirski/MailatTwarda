@@ -2,7 +2,9 @@
 <layout>
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="viewmodel"
             type="pl.birskidev.mailattwarda.presentation.ui.message.MessageViewModel" />
@@ -31,6 +33,16 @@
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme">
+
+                <ImageButton
+                    android:id="@+id/send_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:onClick="@{viewmodel::respondToMessage}"
+                    android:src="@drawable/reply" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -68,9 +80,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
+                        android:text="@{viewmodel.selectedMessage.title.toString()}"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="@{viewmodel.selectedMessage.title.toString()}"
                         tools:text="The subject pf message" />
 
                     <TextView
@@ -78,8 +90,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
-                        android:textStyle="bold"
                         android:text="@{@string/from_string(viewmodel.getFrom())}"
+                        android:textStyle="bold"
                         tools:text="Jan Nowak" />
 
                     <TextView
@@ -87,18 +99,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
-                        android:visibility="@{viewmodel.recipients == `null` ? View.GONE : View.VISIBLE}"
-                        tools:text="to Robert Jackson"
-                        android:text="@{@string/to_string(viewmodel.recipients)}"
-                        />
+                        android:text="@{@string/to_string(viewmodel.getRecipients())}"
+                        android:visibility="@{viewmodel.getRecipients().isEmpty() ? View.GONE : View.VISIBLE}"
+                        tools:text="to Robert Jackson" />
 
                     <TextView
                         android:id="@+id/message_date_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
-                        tools:text="9 stycznia 2020, 12:51"
-                        android:text="@{viewmodel.getDate().concat(`, `).concat(viewmodel.getTime())}"/>
+                        android:text="@{viewmodel.getDate().concat(`, `).concat(viewmodel.getTime())}"
+                        tools:text="9 stycznia 2020, 12:51" />
 
                     <TextView
                         android:id="@+id/message_body_textview"

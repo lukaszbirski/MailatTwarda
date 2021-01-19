@@ -14,6 +14,8 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.FragmentNewMessageBinding
+import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.presentation.ui.message.MessageViewModel
 
 @AndroidEntryPoint
 class NewMessageFragment : Fragment(), NewMessageListener {
@@ -22,12 +24,20 @@ class NewMessageFragment : Fragment(), NewMessageListener {
     private val binding get() = _binding!!
     lateinit var dialog: AlertDialog
 
+    private val viewModel : NewMessageViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.get("myMessage")?.let { message ->
+            viewModel.selectMessage(message as MyMessage)
+        }
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentNewMessageBinding.inflate(inflater, container, false)
-        val viewModel : NewMessageViewModel by viewModels()
         binding.viewmodel = viewModel
         return binding.root
     }
