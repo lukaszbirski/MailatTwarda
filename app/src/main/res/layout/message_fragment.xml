@@ -44,6 +44,16 @@
                     android:onClick="@{viewmodel::respondToMessage}"
                     android:src="@drawable/reply" />
 
+                <ImageButton
+                    android:id="@+id/attachment_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:visibility="@{viewmodel.selectedMessage.hasAttachments ? View.VISIBLE : View.GONE}"
+                    android:src="@drawable/attachment_icon" />
+
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
