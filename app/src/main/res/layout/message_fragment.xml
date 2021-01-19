@@ -32,6 +32,15 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme">
 
+                <ImageButton
+                    android:id="@+id/send_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:src="@drawable/reply" />
+
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -87,9 +96,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
-                        android:visibility="@{viewmodel.recipients == `null` ? View.GONE : View.VISIBLE}"
+                        android:visibility="@{viewmodel.getRecipients().isEmpty() ? View.GONE : View.VISIBLE}"
                         tools:text="to Robert Jackson"
-                        android:text="@{@string/to_string(viewmodel.recipients)}"
+                        android:text="@{@string/to_string(viewmodel.getRecipients())}"
                         />
 
                     <TextView
