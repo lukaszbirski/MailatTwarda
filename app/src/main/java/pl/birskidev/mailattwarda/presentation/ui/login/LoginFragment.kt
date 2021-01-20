@@ -1,6 +1,7 @@
 package pl.birskidev.mailattwarda.presentation.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,9 @@ class LoginFragment : Fragment(), LoginListener {
     ): View? {
         _binding = LoginFragmentBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
+        viewModel.loading.observe(viewLifecycleOwner, { isLoading ->
+            isLoading?.let { binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE }
+        })
         return binding.root
     }
 

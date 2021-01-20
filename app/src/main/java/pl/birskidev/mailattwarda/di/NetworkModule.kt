@@ -9,10 +9,7 @@ import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
 import pl.birskidev.mailattwarda.network.mapper.util.MyMessageUtil
 import pl.birskidev.mailattwarda.network.request.SendMail
 import pl.birskidev.mailattwarda.network.request.SendMailImp
-import pl.birskidev.mailattwarda.network.response.FetchMails
-import pl.birskidev.mailattwarda.network.response.FetchMailsImpl
-import pl.birskidev.mailattwarda.network.response.FetchNumberOfMails
-import pl.birskidev.mailattwarda.network.response.FetchNumberOfMailsImpl
+import pl.birskidev.mailattwarda.network.response.*
 import javax.inject.Singleton
 
 @Module
@@ -53,5 +50,11 @@ object NetworkModule {
     @Provides
     fun provideFetchingNumberOfMails() : FetchNumberOfMails {
         return FetchNumberOfMailsImpl()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCheckCredentials() : CheckCredentials {
+        return CheckCredentialsImpl()
     }
 }
