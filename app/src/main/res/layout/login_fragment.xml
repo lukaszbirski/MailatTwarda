@@ -1,68 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
+
         <variable
             name="viewmodel"
             type="pl.birskidev.mailattwarda.presentation.ui.login.LoginViewModel" />
     </data>
 
-    <RelativeLayout
-        android:background="@drawable/gradient"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient">
+
+        <EditText
+            android:id="@+id/personEditText"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/ic_action_person"
+            android:ems="10"
+            android:hint="Name and Lastname"
+            android:inputType="textPersonName"
+            android:textSize="16dp"
+            android:text="@={viewmodel.person}"
+            app:layout_constraintBottom_toTopOf="@+id/loginEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/loginEditText"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="250dp"
-            android:ems="10"
-            android:layout_marginBottom="35dp"
-            android:inputType="textPersonName"
-            android:hint="Login"
-            android:background="#11000000"
-            android:textSize="16dp"
             android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:background="#11000000"
             android:drawableLeft="@drawable/ic_action_user"
-            android:layout_height="40dp" />
+            android:ems="10"
+            android:hint="Login"
+            android:text="@={viewmodel.login}"
+            android:inputType="textPersonName"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/passwordEditText"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/loginEditText"
-            android:ems="10"
-            android:layout_marginTop="25dp"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:background="#11000000"
-            android:layout_marginBottom="40dp"
-            android:textSize="16dp"
-            android:drawableLeft="@drawable/ic_action_pass"
             android:layout_width="250dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_below="@id/loginEditText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="136dp"
+            android:background="#11000000"
+            android:drawableLeft="@drawable/ic_action_pass"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:text="@={viewmodel.password}"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
-            android:layout_below="@id/passwordEditText"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordEditText"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            app:cardBackgroundColor="@color/gray_800"
             android:layout_width="300dp"
             android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="116dp"
+            android:onClick="@{viewmodel::logIn}"
+            app:cardBackgroundColor="@color/gray_800"
             app:cardCornerRadius="25dp"
             app:cardElevation="10dp"
-            android:layout_below="@id/progressBar"
-            android:layout_centerHorizontal="true" >
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -74,14 +109,14 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="Login"
-                    android:textStyle="bold"
                     android:textColor="#fff"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
