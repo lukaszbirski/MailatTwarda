@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = LoginFragmentBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
-        binding.button.setOnClickListener {
+        binding.cardView.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_messageListFragment)
         }
         return binding.root
