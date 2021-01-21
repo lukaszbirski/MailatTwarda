@@ -35,7 +35,7 @@ class SendMailImp : SendMail {
                     msg.setFrom(sender)
                     msg.setRecipient(Message.RecipientType.TO, recipient)
                     msg.subject = subject
-                    Transport.send(msg, "", "")
+                    Transport.send(msg, "l.birski", "fotosynteza")
                     Log.d(TAG, "Message to $recipient have been sent!")
                 }
 

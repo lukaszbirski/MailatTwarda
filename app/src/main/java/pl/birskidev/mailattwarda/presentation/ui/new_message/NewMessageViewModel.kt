@@ -11,10 +11,14 @@ import io.reactivex.schedulers.Schedulers
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.network.request.SendMail
+import javax.inject.Named
 
 class NewMessageViewModel
 @ViewModelInject
 constructor(
+    @Named("login") private val login: String,
+    @Named("person") private val person: String,
+    @Named("password") private val password: String,
     private val sendMail: SendMail
 ): ViewModel() {
 
@@ -55,6 +59,8 @@ constructor(
                             view,
                             view.context.resources.getString(R.string.email_was_sent_string)
                         )
+                        Thread.sleep(1000)
+                        Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
                     }
 
                     override fun onError(e: Throwable?) {
@@ -63,11 +69,11 @@ constructor(
                             view,
                             view.context.resources.getString(R.string.error_while_sending_email)
                         )
+                        Thread.sleep(1000)
+                        Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
                     }
                 })
         )
-        Thread.sleep(1000)
-        Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
     }
 
     private fun createTemplateRespond(myMessage: MyMessage): String {
