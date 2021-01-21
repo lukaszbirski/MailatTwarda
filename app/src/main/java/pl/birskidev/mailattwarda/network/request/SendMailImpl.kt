@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage
 
 class SendMailImp : SendMail {
 
-    override fun sendMail(emailTo: String, subject: String, message: String): Completable {
+    override fun sendMail(emailTo: String, subject: String, message: String,login: String, password: String, person: String): Completable {
 
         return Completable.create { emitter ->
 
@@ -27,7 +27,7 @@ class SendMailImp : SendMail {
             val session = Session.getInstance(props)
 
             try {
-                val sender: Address = InternetAddress("l.birski@twarda.pan.pl", "Łukasz Birski")
+                val sender: Address = InternetAddress("${login}twarda.pan.pl", person)
                 val recipient: Address = InternetAddress(emailTo)
 
                 MimeMessage(session).let { msg ->
@@ -35,7 +35,7 @@ class SendMailImp : SendMail {
                     msg.setFrom(sender)
                     msg.setRecipient(Message.RecipientType.TO, recipient)
                     msg.subject = subject
-                    Transport.send(msg, "l.birski", "fotosynteza")
+                    Transport.send(msg, login, password)
                     Log.d(TAG, "Message to $recipient have been sent!")
                 }
 

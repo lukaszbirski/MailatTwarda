@@ -49,7 +49,7 @@ constructor(
 
         callback.setProgressDialog(view)
         disposable.add(
-            sendMail.sendMail(recipient.toString(), subject.toString(), message.toString())
+            sendMail.sendMail(recipient.toString(), subject.toString(), message.toString(), login, password, person)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableCompletableObserver() {
@@ -59,7 +59,7 @@ constructor(
                             view,
                             view.context.resources.getString(R.string.email_was_sent_string)
                         )
-                        Thread.sleep(1000)
+                        Thread.sleep(1500)
                         Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
                     }
 
@@ -69,7 +69,7 @@ constructor(
                             view,
                             view.context.resources.getString(R.string.error_while_sending_email)
                         )
-                        Thread.sleep(1000)
+                        Thread.sleep(1500)
                         Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
                     }
                 })
