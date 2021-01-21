@@ -6,12 +6,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import pl.birskidev.mailattwarda.network.mapper.ChipMapper
 import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
+import pl.birskidev.mailattwarda.network.response.CheckCredentials
 import pl.birskidev.mailattwarda.network.response.FetchMails
 import pl.birskidev.mailattwarda.network.response.FetchNumberOfMails
-import pl.birskidev.mailattwarda.repository.FetchMailsRepository
-import pl.birskidev.mailattwarda.repository.FetchMailsRepositoryImpl
-import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
-import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepositoryImpl
+import pl.birskidev.mailattwarda.repository.*
 import javax.inject.Singleton
 
 @Module
@@ -37,6 +35,16 @@ object RepositoryModule {
     ): FetchingNumberOfMailsRepository {
         return FetchingNumberOfMailsRepositoryImpl(
                 chipMapper, fetchingNumberOfMails
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideCheckCredentialsRepository(
+        checkCredentials: CheckCredentials
+    ): CheckCredentialsRepository {
+        return CheckCredentialsRepositoryImpl(
+            checkCredentials
         )
     }
 }

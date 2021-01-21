@@ -16,7 +16,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#C5CAE9"
+        app:cardBackgroundColor="@color/cyan_blue"
         android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical">
 

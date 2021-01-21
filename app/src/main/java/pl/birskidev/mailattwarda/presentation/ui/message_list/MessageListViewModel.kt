@@ -14,10 +14,14 @@ import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
 import pl.birskidev.mailattwarda.util.TAG
+import javax.inject.Named
 
 class MessageListViewModel
 @ViewModelInject
 constructor(
+    @Named("login") private val login: String,
+    @Named("person") private val person: String,
+    @Named("password") private val password: String,
     private val repository: FetchMailsRepository,
     private val numberOfMailsRepository: FetchingNumberOfMailsRepository
 ): ViewModel() {
@@ -44,7 +48,7 @@ constructor(
     fun fetchMails(first: Int, last: Int) {
         loading.postValue(true)
         disposable.add(
-            repository.fetchMails("", "", first, last)
+            repository.fetchMails(login, password, first, last)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
@@ -63,7 +67,7 @@ constructor(
 
     private fun fetchNumberOfMails() {
         disposable.add(
-                numberOfMailsRepository.fetchNumberOfMails("", "")
+                numberOfMailsRepository.fetchNumberOfMails(login, password)
                         ?.subscribeOn(Schedulers.io())
                         ?.observeOn(AndroidSchedulers.mainThread())
                         ?.subscribeWith(object : DisposableSingleObserver<List<MyChip>>() {

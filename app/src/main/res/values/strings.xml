@@ -8,9 +8,15 @@
     <string name="subject_hint">Subject</string>
     <string name="no_topic_string">(no topic)</string>
     <string name="address_required_string">E-mail address is required!</string>
+    <string name="credentials_required_string">Please, provide credentials!</string>
+    <string name="wrong_credentials_string">Wrong credentials or problem with server!</string>
     <string name="email_was_sent_string">E-mail was sent!</string>
     <string name="error_while_sending_email">Error occurred while sending message!</string>
     <string name="sending_string">Sending...</string>
+    <string name="first_and_lastname_hint">First name and last name</string>
+    <string name="login_hint">Login</string>
+    <string name="login_string">Login</string>
+    <string name="password_hint">Password</string>
     <string name="from_string">From: %s</string>
     <string name="to_string">To: %s</string>
 </resources>
