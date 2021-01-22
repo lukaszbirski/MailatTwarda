@@ -27,7 +27,7 @@ class SendMailImp : SendMail {
             val session = Session.getInstance(props)
 
             try {
-                val sender: Address = InternetAddress("${login}twarda.pan.pl", person)
+                val sender: Address = InternetAddress(login, person)
                 val recipient: Address = InternetAddress(emailTo)
 
                 MimeMessage(session).let { msg ->
