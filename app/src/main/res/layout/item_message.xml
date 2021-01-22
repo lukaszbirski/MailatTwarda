@@ -29,18 +29,18 @@
 
             <TextView
                 android:id="@+id/from_message"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{message.sender.length() > 35 ? message.sender.substring(0, 34) : message.sender}"
+                android:layout_width="250dp"
+                android:text="@{message.sender.length() > 27 ? message.sender.substring(0, 26).concat(`...`) : message.sender}"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="name@gmail.com" />
 
             <TextView
                 android:id="@+id/subject_message"
-                android:layout_width="275dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="@{message.title.length() > 70 ? message.title.substring(0, 69) : message.title}"
+                android:text="@{message.title.length() > 70 ? message.title.substring(0, 69).concat(`...`) : message.title}"
                 android:textStyle="normal"
                 tools:text="Some random information is displayed here." />
 
@@ -75,10 +75,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingTop="5dp"
+                android:layout_gravity="right|top"
                 android:visibility="@{message.hasAttachments ? View.VISIBLE : View.GONE}"
-                app:srcCompat="@drawable/attachment_icon" />
+                app:srcCompat="@drawable/ic_action_attachment" />
 
         </LinearLayout>
 
