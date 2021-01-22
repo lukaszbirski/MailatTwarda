@@ -46,4 +46,9 @@ object AppModule {
     @Named("password")
     fun providePassword(sharedPreferences: SharedPreferences) = sharedPreferences.getString(
         KEY_PASSWORD, "") ?: ""
+
+    @Singleton
+    @Provides
+    fun provideFirstTime(sharedPreferences: SharedPreferences) = sharedPreferences.getBoolean(
+        KEY_FIRST_TIME, true)
 }

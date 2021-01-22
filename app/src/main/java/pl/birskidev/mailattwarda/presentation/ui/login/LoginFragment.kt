@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.LoginFragmentBinding
+import pl.birskidev.mailattwarda.util.KEY_FIRST_TIME
 import pl.birskidev.mailattwarda.util.KEY_LOGIN
 import pl.birskidev.mailattwarda.util.KEY_PASSWORD
 import pl.birskidev.mailattwarda.util.KEY_PERSON
@@ -28,11 +29,15 @@ class LoginFragment : Fragment(), LoginListener {
 
     private val viewModel : LoginViewModel by viewModels()
 
+    @set:Inject
+    var isFirstAppOpen = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        checkIfAppIsFirstTimeOpened()
         _binding = LoginFragmentBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
         viewModel.loading.observe(viewLifecycleOwner, { isLoading ->
@@ -71,7 +76,14 @@ class LoginFragment : Fragment(), LoginListener {
             .putString(KEY_PERSON, person)
             .putString(KEY_LOGIN, login)
             .putString(KEY_PASSWORD, password)
+            .putBoolean(KEY_FIRST_TIME, false)
             .apply()
         return true
+    }
+
+    private fun checkIfAppIsFirstTimeOpened(){
+        if (!isFirstAppOpen) {
+            findNavController().navigate(R.id.action_loginFragment_to_messageListFragment)
+        }
     }
 }
