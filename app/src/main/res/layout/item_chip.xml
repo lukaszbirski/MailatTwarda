@@ -12,7 +12,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="75dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="5dp"
@@ -33,7 +33,8 @@
                 android:id="@+id/from_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="26sp"
+                android:textColor="@color/white"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:text="@{chip.displayedNumber}"
                 tools:text="1" />
@@ -42,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/chip_imageView"
-                android:src="@drawable/check"
+                android:src="@drawable/ic_action_check"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="6dp"
                 android:visibility="@{chip.checked ? View.VISIBLE : View.GONE}"

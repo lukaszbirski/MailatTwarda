@@ -12,6 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutForeMessages"
+        android:background="@color/cyan_blue"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,13 +23,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.08"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/gradient"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme">
 
@@ -40,7 +41,16 @@
                     android:layout_marginRight="10dp"
                     android:background="@null"
                     android:onClick="@{viewmodel::sendEmail}"
-                    android:src="@drawable/send_icon" />
+                    android:src="@drawable/ic_action_send" />
+
+                <ImageButton
+                    android:id="@+id/attachment_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_action_attach" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -49,7 +59,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/gray_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.92"
