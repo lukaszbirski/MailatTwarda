@@ -19,4 +19,10 @@
         <item name="colorAccent">@color/gray_800</item>
     </style>
 
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/gray_800</item>
+        <item name="colorControlActivated">@color/gray_800</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>
