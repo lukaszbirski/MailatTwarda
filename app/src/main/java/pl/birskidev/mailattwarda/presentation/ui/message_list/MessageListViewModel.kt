@@ -53,13 +53,11 @@ constructor(
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
                     override fun onSuccess(t: List<MyMessage>) {
-                        Log.d(TAG, "onSuccess: ${t.size}")
                         _messages.postValue(t)
                         loading.postValue(false)
                     }
 
                     override fun onError(e: Throwable) {
-                        Log.d(TAG, "onError: ")
                     }
                 })
         )
@@ -72,7 +70,6 @@ constructor(
                         ?.observeOn(AndroidSchedulers.mainThread())
                         ?.subscribeWith(object : DisposableSingleObserver<List<MyChip>>() {
                             override fun onSuccess(value: List<MyChip>?) {
-                                Log.d(TAG, "onSuccess: ${value?.size}")
                                 _chips.postValue(value)
                             }
 

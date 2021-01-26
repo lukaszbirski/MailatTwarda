@@ -36,12 +36,10 @@ class SendMailImp : SendMail {
                     msg.setRecipient(Message.RecipientType.TO, recipient)
                     msg.subject = subject
                     Transport.send(msg, login, password)
-                    Log.d(TAG, "Message to $recipient have been sent!")
                 }
 
             } catch (e: MessagingException) {
                 emitter.onError(e)
-                Log.d(TAG, "Error while sending message!")
             }
 
             //ending subscription
