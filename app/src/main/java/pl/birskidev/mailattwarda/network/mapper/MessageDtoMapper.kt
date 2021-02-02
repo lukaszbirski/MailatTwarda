@@ -17,7 +17,8 @@ class MessageDtoMapper(myMessageUtil: MyMessageUtil) : DomainMapper<Message, MyM
             recipients = myMessageUtil.getToRecipients(entity),
             date = myMessageUtil.formatDate(entity.sentDate),
             time = myMessageUtil.formatTime(entity.sentDate),
-            hasAttachments = myMessageUtil.hasAttachments(entity)
+            hasAttachments = myMessageUtil.hasAttachments(entity),
+            attachments = myMessageUtil.getAllAttachments(entity)
         )
     }
 

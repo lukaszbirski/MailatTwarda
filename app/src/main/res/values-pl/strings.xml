@@ -19,4 +19,5 @@
     <string name="password_hint">Hasło</string>
     <string name="from_string">Nadawca: %s</string>
     <string name="to_string">Odbiorca: %s</string>
+    <string name="downloaded_file_string">Pliki zostały pobrane</string>
 </resources>

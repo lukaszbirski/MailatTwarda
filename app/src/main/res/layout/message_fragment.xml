@@ -2,9 +2,7 @@
 <layout>
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="viewmodel"
             type="pl.birskidev.mailattwarda.presentation.ui.message.MessageViewModel" />
@@ -52,6 +50,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@null"
                     android:visibility="@{viewmodel.selectedMessage.hasAttachments ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{viewmodel::downloadMessages}"
                     android:src="@drawable/ic_action_attach" />
 
             </androidx.appcompat.widget.Toolbar>
