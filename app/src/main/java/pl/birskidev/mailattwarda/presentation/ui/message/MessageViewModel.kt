@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.text.Spanned
+import android.util.Log
 import android.view.View
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
@@ -15,16 +16,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 import pl.birskidev.mailattwarda.BuildConfig
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.domain.model.ShortMessage
+import pl.birskidev.mailattwarda.repository.FetchSingleMailRepository
 import java.io.File
 import java.util.*
+import javax.inject.Named
+import javax.mail.Message
 
 
 class MessageViewModel
 @ViewModelInject
-constructor() : ViewModel() {
+constructor(
+    @Named("login") private val login: String,
+    @Named("person") private val person: String,
+    @Named("password") private val password: String,
+    private val repository: FetchSingleMailRepository,
+) : ViewModel() {
 
     private val mutableSelectedMessage = MutableLiveData<MyMessage>()
     val selectedMessage: LiveData<MyMessage> get() = mutableSelectedMessage
@@ -32,12 +46,30 @@ constructor() : ViewModel() {
     private val mutableContext = MutableLiveData<Context>()
     val context: LiveData<Context> get() = mutableContext
 
-    fun selectMessage(myMessage: MyMessage) {
-        mutableSelectedMessage.value = myMessage
-    }
+    private val disposable = CompositeDisposable()
 
     fun selectContext(context: Context?) {
         mutableContext.value = context
+    }
+
+    fun selectMessageId(id: Int) {
+        fetchMail(id)
+    }
+
+    private fun fetchMail(id: Int) {
+        disposable.add(
+            repository.fetchSingleMail(login, password, id, id, false)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
+                    override fun onSuccess(t: List<MyMessage>) {
+                        mutableSelectedMessage.postValue(t[0])
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
+                })
+        )
     }
 
     fun getFrom(): String {

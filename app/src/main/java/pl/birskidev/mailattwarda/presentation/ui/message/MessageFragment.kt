@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +28,8 @@ class MessageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.get("myMessage")?.let { message ->
-            viewModel.selectMessage(message as MyMessage)
+        arguments?.getInt("shortMessageId").let { id ->
+            viewModel.selectMessageId(id!!)
             viewModel.selectContext(activity)
         }
     }
