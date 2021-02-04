@@ -10,6 +10,7 @@ import pl.birskidev.mailattwarda.domain.model.Attachment
 
 class AttachmentAdapter(
     private val attachments: List<Attachment>,
+    private val listener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<AttachmentAdapter.AttachmentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -24,6 +25,9 @@ class AttachmentAdapter(
 
     override fun onBindViewHolder(holder: AttachmentViewHolder, position: Int) {
         holder.recyclerViewAttachmentBinding.attachment = attachments[position]
+        holder.recyclerViewAttachmentBinding.root.setOnClickListener {
+            listener.onRecyclerViewItemClick(holder.recyclerViewAttachmentBinding.root, attachments[position].attachment!!)
+        }
     }
 
     override fun getItemCount() = attachments.size

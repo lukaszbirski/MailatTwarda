@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.databinding.MessageFragmentBinding
 import pl.birskidev.mailattwarda.presentation.ui.message.adapter.AttachmentAdapter
+import pl.birskidev.mailattwarda.presentation.ui.message.adapter.RecyclerViewClickListener
+import javax.mail.internet.MimeBodyPart
 
 @AndroidEntryPoint
-class MessageFragment : Fragment() {
+class MessageFragment : Fragment(), RecyclerViewClickListener {
 
     private var _binding: MessageFragmentBinding? = null
     private val binding get() = _binding!!
@@ -40,7 +42,7 @@ class MessageFragment : Fragment() {
             binding.attachmentList.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
-                it.adapter = AttachmentAdapter(attachments)
+                it.adapter = AttachmentAdapter(attachments, this)
             }
         })
         return binding.root
@@ -49,6 +51,10 @@ class MessageFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onRecyclerViewItemClick(view: View, attachment: MimeBodyPart) {
+        viewModel.downloadMessages(attachment)
     }
 
 }

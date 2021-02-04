@@ -32,6 +32,7 @@ import java.io.File
 import java.util.*
 import javax.inject.Named
 import javax.mail.Message
+import javax.mail.internet.MimeBodyPart
 
 
 class MessageViewModel
@@ -114,7 +115,7 @@ constructor(
         )
     }
 
-    fun downloadMessages(view: View) {
+    fun downloadMessages(mimeBodyPart: MimeBodyPart) {
 
         val intent = Intent(Intent.ACTION_VIEW)
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -123,7 +124,7 @@ constructor(
         val path = context.value!!.cacheDir
         val fileName = selectedMessage.value!!.attachments?.get(0)?.fileName
 
-        selectedMessage.value!!.attachments?.get(0)?.saveFile("$path/$fileName")
+        mimeBodyPart.saveFile("$path/$fileName")
 
         val file = File("$path/$fileName")
 
@@ -152,7 +153,7 @@ constructor(
         }
     }
 
-    //todo potencially
+    //todo potencially expand list
     private fun selectFileType(file: File): String{
         when (file.extension) {
             "pdf" -> return "application/pdf"
