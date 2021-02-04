@@ -8,6 +8,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import pl.birskidev.mailattwarda.network.mapper.AttachmentMapper
+import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
+import pl.birskidev.mailattwarda.network.mapper.util.MyMessageUtil
 import pl.birskidev.mailattwarda.presentation.BaseApplication
 import pl.birskidev.mailattwarda.util.*
 import javax.inject.Named
@@ -51,4 +54,10 @@ object AppModule {
     @Provides
     fun provideFirstTime(sharedPreferences: SharedPreferences) = sharedPreferences.getBoolean(
         KEY_FIRST_TIME, true)
+
+    @Singleton
+    @Provides
+    fun provideAttachmentMapper() : AttachmentMapper {
+        return AttachmentMapper()
+    }
 }

@@ -6,10 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.ItemMessageBinding
-import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.domain.model.ShortMessage
 
 class MessageAdapter(
-        private val messages: List<MyMessage>,
+        private val messages: List<ShortMessage>,
         private val listener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 

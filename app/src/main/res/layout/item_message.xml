@@ -7,7 +7,7 @@
         <import type="android.view.View" />
         <variable
             name="message"
-            type="pl.birskidev.mailattwarda.domain.model.MyMessage" />
+            type="pl.birskidev.mailattwarda.domain.model.ShortMessage" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -1,6 +1,5 @@
 package pl.birskidev.mailattwarda.presentation.ui.message_list
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,10 +9,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import pl.birskidev.mailattwarda.domain.model.MyChip
-import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.domain.model.ShortMessage
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
-import pl.birskidev.mailattwarda.util.TAG
 import javax.inject.Named
 
 class MessageListViewModel
@@ -28,8 +26,8 @@ constructor(
 
     private val disposable = CompositeDisposable()
 
-    private val _messages: MutableLiveData<List<MyMessage>> = MutableLiveData()
-    val messages: LiveData<List<MyMessage>> get() = _messages
+    private val _messages: MutableLiveData<List<ShortMessage>> = MutableLiveData()
+    val messages: LiveData<List<ShortMessage>> get() = _messages
 
     private val _chips: MutableLiveData<List<MyChip>> = MutableLiveData()
     val chips: LiveData<List<MyChip>> get() = _chips
@@ -48,11 +46,11 @@ constructor(
     fun fetchMails(first: Int, last: Int) {
         loading.postValue(true)
         disposable.add(
-            repository.fetchMails(login, password, first, last)
+            repository.fetchMails(login, password, first, last, true)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
-                    override fun onSuccess(t: List<MyMessage>) {
+                ?.subscribeWith(object : DisposableSingleObserver<List<ShortMessage>>() {
+                    override fun onSuccess(t: List<ShortMessage>) {
                         _messages.postValue(t)
                         loading.postValue(false)
                     }

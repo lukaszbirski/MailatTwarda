@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.databinding.MessageFragmentBinding
-import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.presentation.ui.message.adapter.AttachmentAdapter
+import pl.birskidev.mailattwarda.presentation.ui.message.adapter.RecyclerViewClickListener
+import javax.mail.internet.MimeBodyPart
 
 @AndroidEntryPoint
-class MessageFragment : Fragment() {
+class MessageFragment : Fragment(), RecyclerViewClickListener {
 
     private var _binding: MessageFragmentBinding? = null
     private val binding get() = _binding!!
@@ -20,8 +23,9 @@ class MessageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.get("myMessage")?.let { message ->
-            viewModel.selectMessage(message as MyMessage)
+        arguments?.getInt("shortMessageId").let { id ->
+            viewModel.selectMessageId(id!!)
+            viewModel.selectContext(activity)
         }
     }
 
@@ -31,13 +35,26 @@ class MessageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = MessageFragmentBinding.inflate(inflater, container, false)
-        binding.viewmodel = viewModel
+        viewModel.selectedMessage.observe(viewLifecycleOwner, {
+            binding.viewmodel = viewModel
+        })
+        viewModel.attachments.observe(viewLifecycleOwner, { attachments ->
+            binding.attachmentList.also {
+                it.layoutManager = LinearLayoutManager(requireContext())
+                it.setHasFixedSize(true)
+                it.adapter = AttachmentAdapter(attachments, this)
+            }
+        })
         return binding.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onRecyclerViewItemClick(view: View, attachment: MimeBodyPart) {
+        viewModel.downloadMessages(attachment)
     }
 
 }
