@@ -40,7 +40,9 @@ class MessageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = MessageFragmentBinding.inflate(inflater, container, false)
-        binding.viewmodel = viewModel
+        viewModel.selectedMessage.observe(viewLifecycleOwner, {
+            binding.viewmodel = viewModel
+        })
         return binding.root
     }
 

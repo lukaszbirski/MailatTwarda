@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         val builder = VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
 
-        AppCenter.start(
-            application, "53a5ece4-4e87-43c4-a20b-bbaea7e77943",
-            Analytics::class.java, Crashes::class.java
-        )
+//        AppCenter.start(
+//            application, "53a5ece4-4e87-43c4-a20b-bbaea7e77943",
+//            Analytics::class.java, Crashes::class.java
+//        )
     }
 }

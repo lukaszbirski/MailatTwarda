@@ -112,21 +112,19 @@ constructor(
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         intent.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 
-        val title = "Choose app to open the attachment"
-
         val path = context.value!!.cacheDir
         val fileName = selectedMessage.value!!.attachments?.get(0)?.fileName
 
         selectedMessage.value!!.attachments?.get(0)?.saveFile("$path/$fileName")
 
-        val file = File("$path$fileName")
+        val file = File("$path/$fileName")
 
         val uri: Uri? = FileProvider.getUriForFile(
             Objects.requireNonNull(context.value!!.applicationContext),
-            BuildConfig.APPLICATION_ID + ".provider", file
+            BuildConfig.APPLICATION_ID + ".fileprovider", file
         )
 
-        intent.setDataAndType(uri, "application/pdf");
+        intent.setDataAndType(uri, selectFileType(file))
 
         val pm: PackageManager? = context.value!!.packageManager
 
@@ -146,4 +144,13 @@ constructor(
         }
     }
 
+    //todo potencially
+    private fun selectFileType(file: File): String{
+        when (file.extension) {
+            "pdf" -> return "application/pdf"
+            "docx" -> return "application/msword"
+            "doc" -> return "application/msword"
+            else -> return "application/*"
+        }
+    }
 }
