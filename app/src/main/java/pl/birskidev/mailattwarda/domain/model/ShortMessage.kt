@@ -2,7 +2,7 @@ package pl.birskidev.mailattwarda.domain.model
 
 import javax.mail.internet.MimeBodyPart
 
-class ShortMessage(
+data class ShortMessage(
     var id: Int? = null,
     val title: String? = null,
     val date: String? = null,

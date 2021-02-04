@@ -5,7 +5,7 @@ import pl.birskidev.mailattwarda.domain.util.DomainMapper
 import pl.birskidev.mailattwarda.network.mapper.util.MyMessageUtil
 import javax.mail.Message
 
-class ShortMessageDtoMapper(myMessageUtil: MyMessageUtil) :DomainMapper<Message, ShortMessage> {
+class ShortMessageDtoMapper(myMessageUtil: MyMessageUtil) : DomainMapper<Message, ShortMessage> {
 
     private val myMessageUtil = myMessageUtil
 

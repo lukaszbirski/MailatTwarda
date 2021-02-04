@@ -22,8 +22,11 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import pl.birskidev.mailattwarda.BuildConfig
 import pl.birskidev.mailattwarda.R
+import pl.birskidev.mailattwarda.domain.model.Attachment
+import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.domain.model.ShortMessage
+import pl.birskidev.mailattwarda.network.mapper.AttachmentMapper
 import pl.birskidev.mailattwarda.repository.FetchSingleMailRepository
 import java.io.File
 import java.util.*
@@ -38,6 +41,7 @@ constructor(
     @Named("person") private val person: String,
     @Named("password") private val password: String,
     private val repository: FetchSingleMailRepository,
+    private val mapper: AttachmentMapper
 ) : ViewModel() {
 
     private val mutableSelectedMessage = MutableLiveData<MyMessage>()
@@ -45,6 +49,9 @@ constructor(
 
     private val mutableContext = MutableLiveData<Context>()
     val context: LiveData<Context> get() = mutableContext
+
+    private val _attachments: MutableLiveData<List<Attachment>> = MutableLiveData()
+    val attachments: LiveData<List<Attachment>> get() = _attachments
 
     private val disposable = CompositeDisposable()
 
@@ -64,6 +71,7 @@ constructor(
                 ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
                     override fun onSuccess(t: List<MyMessage>) {
                         mutableSelectedMessage.postValue(t[0])
+                        _attachments.postValue(mapper.mapToDomainModelList(t[0].attachments!!))
                     }
 
                     override fun onError(e: Throwable) {
