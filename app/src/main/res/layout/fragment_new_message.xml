@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutForeMessages"
-        android:background="@color/cyan_blue"
+        android:background="?attr/colorSecondaryVariant"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
