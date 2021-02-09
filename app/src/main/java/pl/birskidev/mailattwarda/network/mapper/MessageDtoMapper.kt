@@ -14,11 +14,12 @@ class MessageDtoMapper(myMessageUtil: MyMessageUtil) : DomainMapper<Message, MyM
             title = entity.subject,
             content = myMessageUtil.getTextFromMessage(entity),
             sender = myMessageUtil.formatEmail(entity.from[0].toString()),
-            recipients = myMessageUtil.getToRecipients(entity),
+            recipients = myMessageUtil.getRecipients(entity, Message.RecipientType.TO),
             date = myMessageUtil.formatDate(entity.sentDate),
             time = myMessageUtil.formatTime(entity.sentDate),
             hasAttachments = myMessageUtil.hasAttachments(entity),
-            attachments = myMessageUtil.getAllAttachments(entity)
+            attachments = myMessageUtil.getAllAttachments(entity),
+            ccRecipients = myMessageUtil.getRecipients(entity, Message.RecipientType.CC)
         )
     }
 

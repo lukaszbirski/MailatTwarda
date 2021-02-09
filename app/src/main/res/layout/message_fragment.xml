@@ -99,7 +99,16 @@
                         android:paddingBottom="8dp"
                         android:text="@{@string/to_string(viewmodel.getRecipients())}"
                         android:visibility="@{viewmodel.getRecipients().isEmpty() ? View.GONE : View.VISIBLE}"
-                        tools:text="to Robert Jackson" />
+                        tools:text="to: Robert Jackson" />
+
+                    <TextView
+                        android:id="@+id/message_ccs_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="@{@string/cc_string(viewmodel.getCCRecipients())}"
+                        android:visibility="@{viewmodel.getCCRecipients().isEmpty() ? View.GONE : View.VISIBLE}"
+                        tools:text="CC: Robert Jackson" />
 
                     <TextView
                         android:id="@+id/message_date_textview"
