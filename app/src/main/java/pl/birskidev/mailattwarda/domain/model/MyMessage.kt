@@ -9,6 +9,7 @@ data class MyMessage(
     val content: String? = null,
     val sender: String? = null,
     val recipients: List<String>? = listOf(),
+    val ccRecipients: List<String>? = listOf(),
     val date: String? = null,
     val time: String? = null,
     val hasAttachments: Boolean? = false,

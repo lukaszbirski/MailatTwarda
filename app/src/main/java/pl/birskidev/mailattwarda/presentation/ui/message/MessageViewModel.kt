@@ -83,8 +83,16 @@ constructor(
     fun getRecipients(): String? {
         var recipientsString = ""
         if (selectedMessage.value?.recipients.isNullOrEmpty()) return recipientsString
-
         for (recipient in selectedMessage.value?.recipients!!) {
+            recipientsString = "$recipientsString; $recipient"
+        }
+        return recipientsString.substring(2)
+    }
+
+    fun getCCRecipients(): String? {
+        var recipientsString = ""
+        if (selectedMessage.value?.ccRecipients.isNullOrEmpty()) return recipientsString
+        for (recipient in selectedMessage.value?.ccRecipients!!) {
             recipientsString = "$recipientsString; $recipient"
         }
         return recipientsString.substring(2)

@@ -92,16 +92,15 @@ class MyMessageUtil {
         return result
     }
 
-    fun getToRecipients(message: Message): List<String>? {
+    fun getRecipients(message: Message, recipientType: Message.RecipientType): List<String>? {
         val toAddresses: MutableList<String> = ArrayList()
-        val recipients = message.getRecipients(Message.RecipientType.TO)
+        val recipients = message.getRecipients(recipientType)
         return if (recipients != null) {
             for (address in recipients) {
                 formatEmail(address.toString())?.let { toAddresses.add(it) }
             }
             toAddresses
         } else null
-
     }
 
     fun getAllAttachments(message: Message): List<MimeBodyPart>? {
