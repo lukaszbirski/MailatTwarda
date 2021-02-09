@@ -8,6 +8,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.ShortMessage
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
@@ -24,8 +26,6 @@ constructor(
     private val numberOfMailsRepository: FetchingNumberOfMailsRepository
 ): ViewModel() {
 
-    private val disposable = CompositeDisposable()
-
     private val _messages: MutableLiveData<List<ShortMessage>> = MutableLiveData()
     val messages: LiveData<List<ShortMessage>> get() = _messages
 
@@ -35,53 +35,31 @@ constructor(
     val loading = MutableLiveData<Boolean>()
 
     init {
-        fetchNumberOfMails()
-        refresh()
+        GlobalScope.launch {
+            fetchNumberOfMails()
+            refresh()
+        }
     }
 
-    private fun refresh() {
+    private suspend fun refresh() {
         fetchMails(1, 15)
     }
 
-    fun fetchMails(first: Int, last: Int) {
+    fun loadMessages(first: Int, last: Int){
+        GlobalScope.launch {
+            fetchMails(first, last)
+        }
+    }
+
+    private suspend fun fetchMails(first: Int, last: Int) {
         loading.postValue(true)
-        disposable.add(
-            repository.fetchMails(login, password, first, last, true)
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribeWith(object : DisposableSingleObserver<List<ShortMessage>>() {
-                    override fun onSuccess(t: List<ShortMessage>) {
-                        _messages.postValue(t)
-                        loading.postValue(false)
-                    }
-
-                    override fun onError(e: Throwable) {
-                    }
-                })
-        )
+        val result = repository.fetchMails(login, password, first, last, true)
+        _messages.postValue(result)
+        loading.postValue(false)
     }
 
-    private fun fetchNumberOfMails() {
-        disposable.add(
-                numberOfMailsRepository.fetchNumberOfMails(login, password)
-                        ?.subscribeOn(Schedulers.io())
-                        ?.observeOn(AndroidSchedulers.mainThread())
-                        ?.subscribeWith(object : DisposableSingleObserver<List<MyChip>>() {
-                            override fun onSuccess(value: List<MyChip>?) {
-                                _chips.postValue(value)
-                            }
-
-                            override fun onError(e: Throwable?) {
-
-                            }
-
-                        })
-        )
+    private suspend fun fetchNumberOfMails() {
+        val result = numberOfMailsRepository.fetchNumberOfMails(login, password)
+        _chips.postValue(result)
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
-    }
-
 }
