@@ -1,9 +1,8 @@
 package pl.birskidev.mailattwarda.network.response
 
-import io.reactivex.Single
 import javax.mail.Message
 
 interface FetchMails {
 
-    fun fetchingMails(username: String, password: String, first: Int, last: Int, isShortMessage: Boolean) : Single<List<Message>>
+    suspend fun fetchingMails(username: String, password: String, first: Int, last: Int, isShortMessage: Boolean) : List<Message>
 }

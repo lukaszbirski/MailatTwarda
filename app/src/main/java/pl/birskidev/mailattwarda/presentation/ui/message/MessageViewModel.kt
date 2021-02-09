@@ -20,6 +20,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.BuildConfig
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.Attachment
@@ -45,40 +47,25 @@ constructor(
     private val mapper: AttachmentMapper
 ) : ViewModel() {
 
-    private val mutableSelectedMessage = MutableLiveData<MyMessage>()
-    val selectedMessage: LiveData<MyMessage> get() = mutableSelectedMessage
+    private val _selectedMessage = MutableLiveData<MyMessage>()
+    val selectedMessage: LiveData<MyMessage> get() = _selectedMessage
 
-    private val mutableContext = MutableLiveData<Context>()
-    val context: LiveData<Context> get() = mutableContext
+    private val _context = MutableLiveData<Context>()
+    val context: LiveData<Context> get() = _context
 
     private val _attachments: MutableLiveData<List<Attachment>> = MutableLiveData()
     val attachments: LiveData<List<Attachment>> get() = _attachments
 
-    private val disposable = CompositeDisposable()
-
     fun selectContext(context: Context?) {
-        mutableContext.value = context
+        _context.value = context
     }
 
     fun selectMessageId(id: Int) {
-        fetchMail(id)
-    }
-
-    private fun fetchMail(id: Int) {
-        disposable.add(
-            repository.fetchSingleMail(login, password, id, id, false)
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribeWith(object : DisposableSingleObserver<List<MyMessage>>() {
-                    override fun onSuccess(t: List<MyMessage>) {
-                        mutableSelectedMessage.postValue(t[0])
-                        _attachments.postValue(mapper.mapToDomainModelList(t[0].attachments!!))
-                    }
-
-                    override fun onError(e: Throwable) {
-                    }
-                })
-        )
+        GlobalScope.launch {
+            val result = repository.fetchSingleMail(login, password, id, id, false)
+            _attachments.postValue(mapper.mapToDomainModelList(result[0].attachments!!))
+            _selectedMessage.postValue(result[0])
+        }
     }
 
     fun getFrom(): String {

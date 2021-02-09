@@ -73,7 +73,7 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
             is MyChip -> {
                 binding.loadingView.visibility = View.VISIBLE
                 binding.chipsList.adapter?.notifyDataSetChanged()
-                viewModel.fetchMails(any.firstNumber, any.lastNumber)
+                viewModel.loadMessages(any.firstNumber, any.lastNumber)
                 binding.messagesList.adapter?.notifyDataSetChanged()
             }
         }
