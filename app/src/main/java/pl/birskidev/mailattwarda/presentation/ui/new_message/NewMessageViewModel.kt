@@ -69,8 +69,6 @@ constructor(
                             view,
                             view.context.resources.getString(R.string.error_while_sending_email)
                         )
-                        Thread.sleep(1500)
-                        Navigation.findNavController(view).navigate(R.id.action_newMessageFragment_to_messageListFragment)
                     }
                 })
         )
