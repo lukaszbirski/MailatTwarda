@@ -3,9 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="to_hint">Odbiorca</string>
-    <string name="message_hint">Wiadomość</string>
-    <string name="subject_hint">Temat</string>
+    <string name="to_hint">wiele adresów rozdziel przecinkiem...</string>
+    <string name="subject_string">Temat:</string>
+    <string name="to_string_message">Do:</string>
+    <string name="message_hint">wiadomość...</string>
+    <string name="subject_hint">dodaj temat...</string>
     <string name="no_topic_string">(brak tematu)</string>
     <string name="address_required_string">Adres e-mail jest wymagany</string>
     <string name="credentials_required_string">Proszę wprowadzić dane logowania!</string>
