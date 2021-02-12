@@ -1,5 +1,6 @@
 package pl.birskidev.mailattwarda.presentation.ui.new_message
 
+import android.util.Log
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
@@ -27,7 +28,9 @@ constructor(
     var recipient: String? = null
     var subject: String? = null
     var message: String? = null
+    var ccRecipient: String? = null
     var emailTo = mutableListOf<String>()
+    var emailCC = mutableListOf<String>()
 
     private var callback: NewMessageListener = NewMessageFragment()
 
@@ -39,6 +42,7 @@ constructor(
 
     fun sendEmail(view: View) {
 
+        //makes toast when email address is not added
         if (recipient.isNullOrEmpty()) {
             callback.toastMessage(
                 view,
@@ -46,19 +50,35 @@ constructor(
             )
             return
         }
+
+        //if subject was not added then (no topic) string will be added
         if (subject.isNullOrEmpty()) subject = view.context.resources.getString(R.string.no_topic_string)
+
+        //is message is null then " " is added
         if (message.isNullOrEmpty()) message = ""
 
-        val addresses = recipient!!.split(", ")
-        addresses.getShortWordsTo(emailTo, 254)
+        //create list of email addresses to send as TO
+        val addressesTo = recipient!!.split(", ")
+        addressesTo.getShortWords(emailTo, 254)
 
+        //create list of email addresses to send as CC
+        if (!ccRecipient.isNullOrEmpty()) {
+            val addressesCC = ccRecipient!!.split(", ")
+            addressesCC.getShortWords(emailCC, 254)
+        }
+
+        //shows progressdialog before sending email
         callback.setProgressDialog(view)
+
+
+        //sending mail
         disposable.add(
-            sendMail.sendMail(emailTo, subject.toString(), message.toString(), login, password, person)
+            sendMail.sendMail(emailTo, emailCC, subject.toString(), message.toString(), login, password, person)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableCompletableObserver() {
                     override fun onComplete() {
+                        //if email is send progressdialog is dissmissed, toast showed and user navigated to messageListFragment
                         callback.dismissProgressDialog(view)
                         callback.toastMessage(
                             view,
@@ -69,6 +89,7 @@ constructor(
                     }
 
                     override fun onError(e: Throwable?) {
+                        //if error occured progressdialog is dissmissed and toast informing about error showed
                         callback.dismissProgressDialog(view)
                         callback.toastMessage(
                             view,
@@ -79,6 +100,7 @@ constructor(
         )
     }
 
+    //return template for the respond containing message info
     private fun createTemplateRespond(myMessage: MyMessage): String {
 
         return "\n\n-----Original Message-----\nFrom: ${myMessage.sender}\n" +
@@ -88,7 +110,8 @@ constructor(
                 "${myMessage.content}"
     }
 
-    private fun List<String>.getShortWordsTo(shortWords: MutableList<String>, maxLength: Int) {
+    //converts string into list of emails
+    private fun List<String>.getShortWords(shortWords: MutableList<String>, maxLength: Int) {
         this.filterTo(shortWords) { it.length <= maxLength }
     }
 
