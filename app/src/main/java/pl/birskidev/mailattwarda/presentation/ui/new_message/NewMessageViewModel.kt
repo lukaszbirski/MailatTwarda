@@ -27,6 +27,8 @@ constructor(
     var recipient: String? = null
     var subject: String? = null
     var message: String? = null
+    var emailTo = mutableListOf<String>()
+
     private var callback: NewMessageListener = NewMessageFragment()
 
     fun selectMessage(myMessage: MyMessage) {
@@ -47,9 +49,12 @@ constructor(
         if (subject.isNullOrEmpty()) subject = view.context.resources.getString(R.string.no_topic_string)
         if (message.isNullOrEmpty()) message = ""
 
+        val addresses = recipient!!.split(", ")
+        addresses.getShortWordsTo(emailTo, 254)
+
         callback.setProgressDialog(view)
         disposable.add(
-            sendMail.sendMail(recipient.toString(), subject.toString(), message.toString(), login, password, person)
+            sendMail.sendMail(emailTo, subject.toString(), message.toString(), login, password, person)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableCompletableObserver() {
@@ -81,6 +86,10 @@ constructor(
                 "Subject: ${myMessage.title}\n" +
                 "To: ${myMessage.recipients.toString()}\n\n" +
                 "${myMessage.content}"
+    }
+
+    private fun List<String>.getShortWordsTo(shortWords: MutableList<String>, maxLength: Int) {
+        this.filterTo(shortWords) { it.length <= maxLength }
     }
 
     override fun onCleared() {

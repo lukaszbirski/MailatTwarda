@@ -1,8 +1,6 @@
 package pl.birskidev.mailattwarda.network.request
 
-import android.util.Log
 import io.reactivex.Completable
-import pl.birskidev.mailattwarda.util.TAG
 import pl.birskidev.mailattwarda.util.smtpsHost
 import java.util.*
 import javax.mail.*
@@ -11,7 +9,7 @@ import javax.mail.internet.MimeMessage
 
 class SendMailImp : SendMail {
 
-    override fun sendMail(emailTo: String, subject: String, message: String,login: String, password: String, person: String): Completable {
+    override fun sendMail(emailsTo: List<String>, subject: String, message: String,login: String, password: String, person: String): Completable {
 
         return Completable.create { emitter ->
 
@@ -26,14 +24,20 @@ class SendMailImp : SendMail {
             //Creating a session
             val session = Session.getInstance(props)
 
+            //Creating array of recipients
+            val recipientsList = mutableListOf<Address>()
+            for (emailTo in emailsTo) {
+                recipientsList.add(InternetAddress(emailTo))
+            }
+            val to : Array<Address> = recipientsList.toTypedArray()
+
             try {
                 val sender: Address = InternetAddress(login, person)
-                val recipient: Address = InternetAddress(emailTo)
 
                 MimeMessage(session).let { msg ->
                     msg.setText(message)
                     msg.setFrom(sender)
-                    msg.setRecipient(Message.RecipientType.TO, recipient)
+                    msg.setRecipients(Message.RecipientType.TO, to)
                     msg.subject = subject
                     Transport.send(msg, login, password)
                 }
