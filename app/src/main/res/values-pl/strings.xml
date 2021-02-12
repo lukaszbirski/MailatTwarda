@@ -6,6 +6,7 @@
     <string name="to_hint">wiele adresów rozdziel przecinkiem...</string>
     <string name="subject_string">Temat:</string>
     <string name="to_string_message">Do:</string>
+    <string name="cc_string_message">DW:</string>
     <string name="message_hint">wiadomość...</string>
     <string name="subject_hint">dodaj temat...</string>
     <string name="no_topic_string">(brak tematu)</string>

@@ -6,6 +6,7 @@
     <string name="to_hint">many addresses separate with comma...</string>
     <string name="subject_string">Subject:</string>
     <string name="to_string_message">To:</string>
+    <string name="cc_string_message">CC:</string>
     <string name="message_hint">write message here...</string>
     <string name="subject_hint">add subject here...</string>
     <string name="no_topic_string">(no topic)</string>
