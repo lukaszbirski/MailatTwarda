@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.microsoft.appcenter.AppCenter
@@ -18,6 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var connectionLiveData: ConnectionLiveData
 
+    lateinit var dialogBuilder: AlertDialog.Builder
+    lateinit var dialog: AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         connectionLiveData = ConnectionLiveData(this)
         super.onCreate(savedInstanceState)
@@ -29,9 +34,15 @@ class MainActivity : AppCompatActivity() {
         val builder = VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
 
+        var canBeDismissed: Boolean = false
+
         connectionLiveData.observe(this, { isConnected ->
+
             if (!isConnected) {
-    
+                createPupupDialog()
+                canBeDismissed = true
+            } else if (isConnected && canBeDismissed)  {
+                dismissPopupDialog()
             }
          })
 
@@ -39,5 +50,19 @@ class MainActivity : AppCompatActivity() {
 //            application, "53a5ece4-4e87-43c4-a20b-bbaea7e77943",
 //            Analytics::class.java, Crashes::class.java
 //        )
+    }
+
+    private fun createPupupDialog() {
+        dialogBuilder = AlertDialog.Builder(this)
+        val view: View = layoutInflater.inflate(R.layout.no_connection_popup, null)
+
+        dialogBuilder.setView(view)
+        dialog = dialogBuilder.create()
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+    }
+
+    private fun dismissPopupDialog() {
+        dialog.dismiss()
     }
 }
