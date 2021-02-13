@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         dialogBuilder.setView(view)
         dialog = dialogBuilder.create()
         dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
         dialog.show()
     }
 
