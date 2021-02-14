@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var dialogBuilder: AlertDialog.Builder
     lateinit var dialog: AlertDialog
 
+    var canBeDismissed: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         connectionLiveData = ConnectionLiveData(this)
         super.onCreate(savedInstanceState)
@@ -34,10 +36,7 @@ class MainActivity : AppCompatActivity() {
         val builder = VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
 
-        var canBeDismissed: Boolean = false
-
         connectionLiveData.observe(this, { isConnected ->
-
             if (!isConnected) {
                 createPupupDialog()
                 canBeDismissed = true
