@@ -9,7 +9,7 @@ class FetchMailsRepositoryImpl(
     private val mapper: MessageDtoMapper
 ) : FetchMailsRepository {
 
-    override suspend fun fetchMails(username: String, password: String, first: Int, last: Int, isShortMessage: Boolean): List<MyMessage> {
-        return mapper.mapToDomainModelList(fetchMails.fetchingMails(username, password, first, last, isShortMessage))
+    override suspend fun fetchMails(username: String, password: String, first: Int, last: Int): List<MyMessage> {
+        return mapper.mapToDomainModelList(fetchMails.fetchingMails(username, password, first, last))
     }
 }

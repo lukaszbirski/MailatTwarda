@@ -4,5 +4,5 @@ import javax.mail.Message
 
 interface FetchMails {
 
-    suspend fun fetchingMails(username: String, password: String, first: Int, last: Int, isShortMessage: Boolean) : List<Message>
+    suspend fun fetchingMails(username: String, password: String, first: Int, last: Int) : List<Message>
 }

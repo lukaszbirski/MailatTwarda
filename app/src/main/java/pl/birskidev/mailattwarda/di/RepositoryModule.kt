@@ -18,17 +18,6 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideFetchSingleMailRepository(
-        messageDtoMapper: MessageDtoMapper,
-        fetchMails: FetchMails
-    ): FetchSingleMailRepository {
-        return FetchSingleMailRepositoryImpl(
-            fetchMails, messageDtoMapper
-        )
-    }
-
-    @Singleton
-    @Provides
     fun provideFetchMailsRepository(
         messageDtoMapper: MessageDtoMapper,
         fetchMails: FetchMails
@@ -41,11 +30,11 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideFetchNumberOfMailsRepository(
-            chipMapper: ChipMapper,
-            fetchingNumberOfMails: FetchNumberOfMails
+        chipMapper: ChipMapper,
+        fetchingNumberOfMails: FetchNumberOfMails
     ): FetchingNumberOfMailsRepository {
         return FetchingNumberOfMailsRepositoryImpl(
-                chipMapper, fetchingNumberOfMails
+            chipMapper, fetchingNumberOfMails
         )
     }
 

@@ -49,7 +49,7 @@ constructor(
 
     private suspend fun fetchMails(first: Int, last: Int) {
         loading.postValue(true)
-        val result = repository.fetchMails(login, password, first, last, true)
+        val result = repository.fetchMails(login, password, first, last)
         _messages.postValue(result)
         loading.postValue(false)
     }

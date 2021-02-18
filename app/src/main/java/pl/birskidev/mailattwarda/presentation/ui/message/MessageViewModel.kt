@@ -15,14 +15,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.BuildConfig
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.Attachment
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.network.mapper.AttachmentMapper
-import pl.birskidev.mailattwarda.repository.FetchSingleMailRepository
+import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import java.io.File
 import java.util.*
 import javax.inject.Named
@@ -32,10 +30,6 @@ import javax.mail.internet.MimeBodyPart
 class MessageViewModel
 @ViewModelInject
 constructor(
-    @Named("login") private val login: String,
-    @Named("person") private val person: String,
-    @Named("password") private val password: String,
-    private val repository: FetchSingleMailRepository,
     private val mapper: AttachmentMapper
 ) : ViewModel() {
 
@@ -54,6 +48,7 @@ constructor(
 
     fun selectMessage(myMessage: MyMessage) {
         _selectedMessage.value = myMessage
+        _attachments.postValue(mapper.mapToDomainModelList(myMessage.attachments!!))
     }
 
     fun getFrom(): String {
