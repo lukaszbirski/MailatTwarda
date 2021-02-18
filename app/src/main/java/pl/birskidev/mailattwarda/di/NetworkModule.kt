@@ -6,7 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import pl.birskidev.mailattwarda.network.mapper.ChipMapper
 import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
-import pl.birskidev.mailattwarda.network.mapper.ShortMessageDtoMapper
 import pl.birskidev.mailattwarda.network.mapper.util.MyMessageUtil
 import pl.birskidev.mailattwarda.network.request.SendMail
 import pl.birskidev.mailattwarda.network.request.SendMailImp
@@ -21,12 +20,6 @@ object NetworkModule {
     @Provides
     fun provideMessageDtoMapper(myMessageUtil: MyMessageUtil) : MessageDtoMapper {
         return MessageDtoMapper(myMessageUtil)
-    }
-
-    @Singleton
-    @Provides
-    fun provideSimpleMessageDtoMapper(myMessageUtil: MyMessageUtil) : ShortMessageDtoMapper {
-        return ShortMessageDtoMapper(myMessageUtil)
     }
 
     @Singleton

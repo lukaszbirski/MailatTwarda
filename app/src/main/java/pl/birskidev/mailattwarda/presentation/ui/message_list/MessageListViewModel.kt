@@ -4,14 +4,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.domain.model.MyChip
-import pl.birskidev.mailattwarda.domain.model.ShortMessage
+import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
 import javax.inject.Named
@@ -26,8 +22,8 @@ constructor(
     private val numberOfMailsRepository: FetchingNumberOfMailsRepository
 ): ViewModel() {
 
-    private val _messages: MutableLiveData<List<ShortMessage>> = MutableLiveData()
-    val messages: LiveData<List<ShortMessage>> get() = _messages
+    private val _messages: MutableLiveData<List<MyMessage>> = MutableLiveData()
+    val messages: LiveData<List<MyMessage>> get() = _messages
 
     private val _chips: MutableLiveData<List<MyChip>> = MutableLiveData()
     val chips: LiveData<List<MyChip>> get() = _chips
