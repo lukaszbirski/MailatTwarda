@@ -86,10 +86,8 @@ constructor(
     }
 
     fun respondToMessage(view: View) {
-        val bundle = bundleOf("myMessage" to selectedMessage.value)
         Navigation.findNavController(view).navigate(
-            R.id.action_messageFragment_to_newMessageFragment,
-            bundle
+            R.id.action_messageFragment_to_newMessageFragment
         )
     }
 

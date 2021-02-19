@@ -26,8 +26,8 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
     private var _binding: MessageListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : MessageListViewModel by viewModels()
-    private val shareDataViewModel : ShareDataViewModel by activityViewModels()
+    private val viewModel: MessageListViewModel by viewModels()
+    private val shareDataViewModel: ShareDataViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,10 +36,13 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
     ): View {
         _binding = MessageListFragmentBinding.inflate(inflater, container, false)
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment ) }
+            shareDataViewModel.myMessage = null
+            findNavController().navigate(R.id.action_messageListFragment_to_newMessageFragment)
+        }
         viewModel.chips.observe(viewLifecycleOwner, { chips ->
             binding.chipsList.also {
-                it.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                it.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 it.setHasFixedSize(true)
                 it.adapter = ChipAdapter(chips, this)
             }
@@ -53,8 +56,11 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
             binding.messagesList.visibility = View.VISIBLE
         })
         viewModel.loading.observe(viewLifecycleOwner, { isLoading ->
-            isLoading?.let { binding.loadingView.visibility = if (it) View.VISIBLE else View.GONE
-            if (it) {binding.messagesList.visibility = View.GONE}
+            isLoading?.let {
+                binding.loadingView.visibility = if (it) View.VISIBLE else View.GONE
+                if (it) {
+                    binding.messagesList.visibility = View.GONE
+                }
             }
         })
         return binding.root
