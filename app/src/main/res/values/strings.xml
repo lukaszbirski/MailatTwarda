@@ -24,4 +24,6 @@
     <string name="to_string">To: %s</string>
     <string name="downloaded_file_string">Files have been downloaded</string>
     <string name="cc_string">CC: %s</string>
+    <string name="disconnected_string">DISCONNECTED</string>
+    <string name="no_connection_string">Wake up your Internet connection</string>
 </resources>

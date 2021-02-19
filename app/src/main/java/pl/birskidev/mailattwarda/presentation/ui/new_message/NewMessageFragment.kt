@@ -10,11 +10,13 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.FragmentNewMessageBinding
 import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.presentation.ShareDataViewModel
 import pl.birskidev.mailattwarda.presentation.ui.message.MessageViewModel
 
 @AndroidEntryPoint
@@ -25,12 +27,11 @@ class NewMessageFragment : Fragment(), NewMessageListener {
     lateinit var dialog: AlertDialog
 
     private val viewModel : NewMessageViewModel by viewModels()
+    private val shareDataViewModel : ShareDataViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.get("myMessage")?.let { message ->
-            viewModel.selectMessage(message as MyMessage)
-        }
+        shareDataViewModel.myMessage?.let { viewModel.selectMessage(it) }
     }
 
     override fun onCreateView(

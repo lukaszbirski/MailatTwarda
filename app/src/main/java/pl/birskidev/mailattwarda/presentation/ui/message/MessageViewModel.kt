@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.text.Spanned
-import android.util.Log
 import android.view.View
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
@@ -16,34 +15,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.BuildConfig
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.Attachment
-import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.MyMessage
-import pl.birskidev.mailattwarda.domain.model.ShortMessage
 import pl.birskidev.mailattwarda.network.mapper.AttachmentMapper
-import pl.birskidev.mailattwarda.repository.FetchSingleMailRepository
+import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import java.io.File
 import java.util.*
 import javax.inject.Named
-import javax.mail.Message
 import javax.mail.internet.MimeBodyPart
 
 
 class MessageViewModel
 @ViewModelInject
 constructor(
-    @Named("login") private val login: String,
-    @Named("person") private val person: String,
-    @Named("password") private val password: String,
-    private val repository: FetchSingleMailRepository,
     private val mapper: AttachmentMapper
 ) : ViewModel() {
 
@@ -60,12 +46,9 @@ constructor(
         _context.value = context
     }
 
-    fun selectMessageId(id: Int) {
-        GlobalScope.launch {
-            val result = repository.fetchSingleMail(login, password, id, id, false)
-            _attachments.postValue(mapper.mapToDomainModelList(result[0].attachments!!))
-            _selectedMessage.postValue(result[0])
-        }
+    fun selectMessage(myMessage: MyMessage) {
+        _selectedMessage.value = myMessage
+        _attachments.postValue(mapper.mapToDomainModelList(myMessage.attachments!!))
     }
 
     fun getFrom(): String {
@@ -103,10 +86,8 @@ constructor(
     }
 
     fun respondToMessage(view: View) {
-        val bundle = bundleOf("myMessage" to selectedMessage.value)
         Navigation.findNavController(view).navigate(
-            R.id.action_messageFragment_to_newMessageFragment,
-            bundle
+            R.id.action_messageFragment_to_newMessageFragment
         )
     }
 

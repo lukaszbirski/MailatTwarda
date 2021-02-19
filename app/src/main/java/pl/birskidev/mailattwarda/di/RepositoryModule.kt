@@ -6,7 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import pl.birskidev.mailattwarda.network.mapper.ChipMapper
 import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
-import pl.birskidev.mailattwarda.network.mapper.ShortMessageDtoMapper
 import pl.birskidev.mailattwarda.network.response.CheckCredentials
 import pl.birskidev.mailattwarda.network.response.FetchMails
 import pl.birskidev.mailattwarda.network.response.FetchNumberOfMails
@@ -19,34 +18,23 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideFetchSingleMailRepository(
+    fun provideFetchMailsRepository(
         messageDtoMapper: MessageDtoMapper,
         fetchMails: FetchMails
-    ): FetchSingleMailRepository {
-        return FetchSingleMailRepositoryImpl(
+    ): FetchMailsRepository {
+        return FetchMailsRepositoryImpl(
             fetchMails, messageDtoMapper
         )
     }
 
     @Singleton
     @Provides
-    fun provideFetchMailsRepository(
-        shortMessageDtoMapper: ShortMessageDtoMapper,
-        fetchMails: FetchMails
-    ): FetchMailsRepository {
-        return FetchMailsRepositoryImpl(
-            fetchMails, shortMessageDtoMapper
-        )
-    }
-
-    @Singleton
-    @Provides
     fun provideFetchNumberOfMailsRepository(
-            chipMapper: ChipMapper,
-            fetchingNumberOfMails: FetchNumberOfMails
+        chipMapper: ChipMapper,
+        fetchingNumberOfMails: FetchNumberOfMails
     ): FetchingNumberOfMailsRepository {
         return FetchingNumberOfMailsRepositoryImpl(
-                chipMapper, fetchingNumberOfMails
+            chipMapper, fetchingNumberOfMails
         )
     }
 

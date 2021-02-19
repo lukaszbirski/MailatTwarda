@@ -14,4 +14,5 @@
     <color name="gray_400">#BDBDBD</color>
     <color name="cyan_blue">#778496</color>
     <color name="deep_blue">#15253C</color>
+    <color name="red">#FF0000</color>
 </resources>

@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.databinding.MessageFragmentBinding
+import pl.birskidev.mailattwarda.presentation.ShareDataViewModel
 import pl.birskidev.mailattwarda.presentation.ui.message.adapter.AttachmentAdapter
 import pl.birskidev.mailattwarda.presentation.ui.message.adapter.RecyclerViewClickListener
 import javax.mail.internet.MimeBodyPart
@@ -20,13 +22,12 @@ class MessageFragment : Fragment(), RecyclerViewClickListener {
     private val binding get() = _binding!!
 
     private val viewModel : MessageViewModel by viewModels()
+    private val shareDataViewModel : ShareDataViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getInt("shortMessageId").let { id ->
-            viewModel.selectMessageId(id!!)
-            viewModel.selectContext(activity)
-        }
+        viewModel.selectContext(activity)
+        shareDataViewModel.myMessage?.let { viewModel.selectMessage(it) }
     }
 
     override fun onCreateView(

@@ -24,4 +24,6 @@
     <string name="to_string">Odbiorca: %s</string>
     <string name="downloaded_file_string">Pliki zostały pobrane</string>
     <string name="cc_string">DW: %s</string>
+    <string name="disconnected_string">BRAK POŁĄCZENIA</string>
+    <string name="no_connection_string">Połącz z Internetem by korzystać z aplikacji</string>
 </resources>
