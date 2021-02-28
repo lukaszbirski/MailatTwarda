@@ -30,11 +30,11 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideFetchNumberOfMailsRepository(
-            chipMapper: ChipMapper,
-            fetchingNumberOfMails: FetchNumberOfMails
+        chipMapper: ChipMapper,
+        fetchingNumberOfMails: FetchNumberOfMails
     ): FetchingNumberOfMailsRepository {
         return FetchingNumberOfMailsRepositoryImpl(
-                chipMapper, fetchingNumberOfMails
+            chipMapper, fetchingNumberOfMails
         )
     }
 

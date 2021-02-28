@@ -1,6 +1,5 @@
 package pl.birskidev.mailattwarda.network.response
 
-import io.reactivex.Single
 import pl.birskidev.mailattwarda.util.pop3Host
 import pl.birskidev.mailattwarda.util.provider
 import java.util.*
@@ -11,7 +10,7 @@ import kotlin.system.exitProcess
 
 class FetchNumberOfMailsImpl  : FetchNumberOfMails {
 
-    override fun fetchingNumberOfMails(username: String, password: String): Single<Int> {
+    override suspend fun fetchingNumberOfMails(username: String, password: String): Int {
         val props = Properties()
 
         // Connect to the POP3 server
@@ -28,7 +27,7 @@ class FetchNumberOfMailsImpl  : FetchNumberOfMails {
         inbox.close(false)
         store.close()
 
-        return Single.just(total)
+        return total
     }
 
 

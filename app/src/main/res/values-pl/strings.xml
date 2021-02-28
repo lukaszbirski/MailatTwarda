@@ -3,9 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="to_hint">Odbiorca</string>
-    <string name="message_hint">Wiadomość</string>
-    <string name="subject_hint">Temat</string>
+    <string name="to_hint">wiele adresów rozdziel średnikiem...</string>
+    <string name="subject_string">Temat:</string>
+    <string name="to_string_message">Do:</string>
+    <string name="cc_string_message">DW:</string>
+    <string name="message_hint">wiadomość...</string>
+    <string name="subject_hint">dodaj temat...</string>
     <string name="no_topic_string">(brak tematu)</string>
     <string name="address_required_string">Adres e-mail jest wymagany</string>
     <string name="credentials_required_string">Proszę wprowadzić dane logowania!</string>
@@ -19,4 +22,11 @@
     <string name="password_hint">Hasło</string>
     <string name="from_string">Nadawca: %s</string>
     <string name="to_string">Odbiorca: %s</string>
+    <string name="downloaded_file_string">Pliki zostały pobrane</string>
+    <string name="cc_string">DW: %s</string>
+    <string name="disconnected_string">BRAK POŁĄCZENIA</string>
+    <string name="no_connection_string">Połącz z Internetem by korzystać z aplikacji</string>
+    <string name="add_cc_menu_string">Dodaj DW</string>
+    <string name="downloading_string">Pobieranie</string>
+    <string name="downloading_message_string">Trwa pobieranie wiadomości...</string>
 </resources>

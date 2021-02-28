@@ -3,9 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="to_hint">To</string>
-    <string name="message_hint">Message</string>
-    <string name="subject_hint">Subject</string>
+    <string name="to_hint">many addresses separate with semicolon...</string>
+    <string name="subject_string">Subject:</string>
+    <string name="to_string_message">To:</string>
+    <string name="cc_string_message">CC:</string>
+    <string name="message_hint">write message here...</string>
+    <string name="subject_hint">add subject here...</string>
     <string name="no_topic_string">(no topic)</string>
     <string name="address_required_string">E-mail address is required!</string>
     <string name="credentials_required_string">Please, provide credentials!</string>
@@ -19,4 +22,11 @@
     <string name="password_hint">Password</string>
     <string name="from_string">From: %s</string>
     <string name="to_string">To: %s</string>
+    <string name="downloaded_file_string">Files have been downloaded</string>
+    <string name="cc_string">CC: %s</string>
+    <string name="disconnected_string">DISCONNECTED</string>
+    <string name="no_connection_string">Wake up your Internet connection</string>
+    <string name="add_cc_menu_string">Add CC</string>
+    <string name="downloading_string">Downloading</string>
+    <string name="downloading_message_string">Messages are being downloaded...</string>
 </resources>

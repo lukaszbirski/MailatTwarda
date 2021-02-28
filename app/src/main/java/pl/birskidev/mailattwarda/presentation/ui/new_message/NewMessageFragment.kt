@@ -5,17 +5,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.FragmentNewMessageBinding
-import pl.birskidev.mailattwarda.domain.model.MyMessage
-import pl.birskidev.mailattwarda.presentation.ui.message.MessageViewModel
+import pl.birskidev.mailattwarda.presentation.ShareDataViewModel
 
 @AndroidEntryPoint
 class NewMessageFragment : Fragment(), NewMessageListener {
@@ -25,12 +22,11 @@ class NewMessageFragment : Fragment(), NewMessageListener {
     lateinit var dialog: AlertDialog
 
     private val viewModel : NewMessageViewModel by viewModels()
+    private val shareDataViewModel : ShareDataViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.get("myMessage")?.let { message ->
-            viewModel.selectMessage(message as MyMessage)
-        }
+        shareDataViewModel.myMessage?.let { viewModel.selectMessage(it) }
     }
 
     override fun onCreateView(
@@ -39,6 +35,15 @@ class NewMessageFragment : Fragment(), NewMessageListener {
     ): View? {
         _binding = FragmentNewMessageBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
+        binding.toolbar.inflateMenu(R.menu.new_message_fragment_menu)
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.action_add_cc -> {
+                    if (binding.ccLinearLayout.visibility == View.GONE) binding.ccLinearLayout.visibility = View.VISIBLE else binding.ccLinearLayout.visibility = View.GONE
+                }
+            }
+            true
+        }
         return binding.root
     }
 

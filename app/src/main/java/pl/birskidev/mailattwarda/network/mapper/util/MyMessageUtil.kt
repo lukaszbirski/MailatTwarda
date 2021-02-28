@@ -2,12 +2,11 @@ package pl.birskidev.mailattwarda.network.mapper.util
 
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.mail.BodyPart
-import javax.mail.Message
-import javax.mail.MessagingException
-import javax.mail.Multipart
+import javax.mail.*
 import javax.mail.internet.ContentType
+import javax.mail.internet.MimeBodyPart
 import javax.mail.internet.MimeMultipart
+import kotlin.collections.ArrayList
 
 class MyMessageUtil {
 
@@ -93,16 +92,34 @@ class MyMessageUtil {
         return result
     }
 
-    fun getToRecipients(message: Message): List<String>? {
+    fun getRecipients(message: Message, recipientType: Message.RecipientType): List<String>? {
         val toAddresses: MutableList<String> = ArrayList()
-        val recipients = message.getRecipients(Message.RecipientType.TO)
+        val recipients = message.getRecipients(recipientType)
         return if (recipients != null) {
             for (address in recipients) {
                 formatEmail(address.toString())?.let { toAddresses.add(it) }
             }
             toAddresses
         } else null
+    }
 
+    fun getAllAttachments(message: Message): List<MimeBodyPart>? {
+        val messageAttachments: MutableList<MimeBodyPart>? = ArrayList()
+        val contentType = message.contentType
+
+        if (contentType.contains("multipart")) {
+
+            val multiPart = message.content as Multipart
+
+            for (i in 0 until multiPart.count) {
+                val part = multiPart.getBodyPart(i) as MimeBodyPart
+                if (Part.ATTACHMENT.equals(part.disposition, ignoreCase = true)) {
+                    messageAttachments?.add(part)
+                }
+            }
+        }
+
+        return messageAttachments
     }
 
 }
