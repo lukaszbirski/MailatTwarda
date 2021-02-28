@@ -27,4 +27,6 @@
     <string name="disconnected_string">DISCONNECTED</string>
     <string name="no_connection_string">Wake up your Internet connection</string>
     <string name="add_cc_menu_string">Add CC</string>
+    <string name="downloading_string">Downloading</string>
+    <string name="downloading_message_string">Messages are being downloaded...</string>
 </resources>
