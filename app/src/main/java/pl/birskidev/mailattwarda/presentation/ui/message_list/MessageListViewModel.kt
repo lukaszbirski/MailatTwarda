@@ -8,6 +8,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.domain.model.MyChip
 import pl.birskidev.mailattwarda.domain.model.MyMessage
+import pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageFragment
+import pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageListener
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
 import javax.inject.Named

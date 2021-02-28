@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -21,13 +21,16 @@ import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.MessageAda
 import pl.birskidev.mailattwarda.presentation.ui.message_list.adapter.RecyclerViewClickListener
 
 @AndroidEntryPoint
-class MessageListFragment : Fragment(), RecyclerViewClickListener {
+class MessageListFragment : Fragment(), RecyclerViewClickListener, MessageListListener {
 
     private var _binding: MessageListFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MessageListViewModel by viewModels()
     private val shareDataViewModel: ShareDataViewModel by activityViewModels()
+
+    lateinit var dialogBuilder: AlertDialog.Builder
+    lateinit var dialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,10 +60,10 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
         })
         viewModel.loading.observe(viewLifecycleOwner, { isLoading ->
             isLoading?.let {
-                binding.loadingView.visibility = if (it) View.VISIBLE else View.GONE
                 if (it) {
+                    setProgressDialog()
                     binding.messagesList.visibility = View.GONE
-                }
+                } else dismissProgressDialog()
             }
         })
         return binding.root
@@ -80,11 +83,26 @@ class MessageListFragment : Fragment(), RecyclerViewClickListener {
                 }
             }
             is MyChip -> {
-                binding.loadingView.visibility = View.VISIBLE
+                setProgressDialog()
                 binding.chipsList.adapter?.notifyDataSetChanged()
                 viewModel.loadMessages(any.firstNumber, any.lastNumber)
                 binding.messagesList.adapter?.notifyDataSetChanged()
+                dismissProgressDialog()
             }
         }
+    }
+
+    override fun setProgressDialog() {
+        dialogBuilder = AlertDialog.Builder(requireView().context)
+
+        dialogBuilder.setView(layoutInflater.inflate(R.layout.download_message_popup, null))
+        dialog = dialogBuilder.create()
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+        dialog.show()
+    }
+
+    override fun dismissProgressDialog() {
+        dialog.dismiss()
     }
 }
