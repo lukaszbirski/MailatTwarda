@@ -58,12 +58,12 @@ constructor(
         if (message.isNullOrEmpty()) message = ""
 
         //create list of email addresses to send as TO
-        val addressesTo = recipient!!.split(", ")
+        val addressesTo = recipient!!.split("; ")
         addressesTo.getShortWords(emailTo, 254)
 
         //create list of email addresses to send as CC
         if (!ccRecipient.isNullOrEmpty()) {
-            val addressesCC = ccRecipient!!.split(", ")
+            val addressesCC = ccRecipient!!.split("; ")
             addressesCC.getShortWords(emailCC, 254)
         }
 
