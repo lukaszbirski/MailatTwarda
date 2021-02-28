@@ -3,12 +3,10 @@ package pl.birskidev.mailattwarda.presentation.ui.new_message
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -40,6 +38,15 @@ class NewMessageFragment : Fragment(), NewMessageListener {
     ): View? {
         _binding = FragmentNewMessageBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
+        binding.toolbar.inflateMenu(R.menu.new_message_fragment_menu)
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.action_add_cc -> {
+                    if (binding.ccLinearLayout.visibility == View.GONE) binding.ccLinearLayout.visibility = View.VISIBLE else binding.ccLinearLayout.visibility = View.GONE
+                }
+            }
+            true
+        }
         return binding.root
     }
 
