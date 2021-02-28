@@ -9,6 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.schedulers.Schedulers
+import org.jsoup.Jsoup
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.network.request.SendMail
@@ -107,7 +108,7 @@ constructor(
                 "Sent: ${myMessage.date},${myMessage.time}\n" +
                 "Subject: ${myMessage.title}\n" +
                 "To: ${myMessage.recipients.toString()}\n\n" +
-                "${myMessage.content}"
+                "${Jsoup.parse(myMessage.content).text()}"
     }
 
     //converts string into list of emails
