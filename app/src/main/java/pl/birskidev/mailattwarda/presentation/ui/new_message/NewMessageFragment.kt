@@ -3,7 +3,6 @@ package pl.birskidev.mailattwarda.presentation.ui.new_message
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.ViewGroup
 import android.widget.*
@@ -13,9 +12,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.databinding.FragmentNewMessageBinding
-import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.presentation.ShareDataViewModel
-import pl.birskidev.mailattwarda.presentation.ui.message.MessageViewModel
 
 @AndroidEntryPoint
 class NewMessageFragment : Fragment(), NewMessageListener {
