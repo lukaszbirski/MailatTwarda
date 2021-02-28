@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="to_hint">wiele adresów rozdziel przecinkiem...</string>
+    <string name="to_hint">wiele adresów rozdziel średnikiem...</string>
     <string name="subject_string">Temat:</string>
     <string name="to_string_message">Do:</string>
     <string name="cc_string_message">DW:</string>
