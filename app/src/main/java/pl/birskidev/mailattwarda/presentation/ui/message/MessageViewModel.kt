@@ -15,6 +15,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import pl.birskidev.mailattwarda.BuildConfig
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.Attachment
@@ -23,12 +24,13 @@ import pl.birskidev.mailattwarda.network.mapper.AttachmentMapper
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import java.io.File
 import java.util.*
+import javax.inject.Inject
 import javax.inject.Named
 import javax.mail.internet.MimeBodyPart
 
-
+@HiltViewModel
 class MessageViewModel
-@ViewModelInject
+@Inject
 constructor(
     private val mapper: AttachmentMapper
 ) : ViewModel() {

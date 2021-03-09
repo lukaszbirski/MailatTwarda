@@ -2,9 +2,9 @@ package pl.birskidev.mailattwarda.presentation.ui.new_message
 
 import android.util.Log
 import android.view.View
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
@@ -13,10 +13,12 @@ import org.jsoup.Jsoup
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.domain.model.MyMessage
 import pl.birskidev.mailattwarda.network.request.SendMail
+import javax.inject.Inject
 import javax.inject.Named
 
+@HiltViewModel
 class NewMessageViewModel
-@ViewModelInject
+@Inject
 constructor(
     @Named("login") private val login: String,
     @Named("person") private val person: String,

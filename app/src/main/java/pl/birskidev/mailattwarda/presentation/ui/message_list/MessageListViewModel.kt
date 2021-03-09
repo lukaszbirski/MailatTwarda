@@ -1,9 +1,9 @@
 package pl.birskidev.mailattwarda.presentation.ui.message_list
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.domain.model.MyChip
@@ -12,10 +12,12 @@ import pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageFragment
 import pl.birskidev.mailattwarda.presentation.ui.new_message.NewMessageListener
 import pl.birskidev.mailattwarda.repository.FetchMailsRepository
 import pl.birskidev.mailattwarda.repository.FetchingNumberOfMailsRepository
+import javax.inject.Inject
 import javax.inject.Named
 
+@HiltViewModel
 class MessageListViewModel
-@ViewModelInject
+@Inject
 constructor(
     @Named("login") private val login: String,
     @Named("person") private val person: String,

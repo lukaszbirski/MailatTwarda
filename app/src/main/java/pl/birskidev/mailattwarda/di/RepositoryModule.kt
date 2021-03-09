@@ -3,7 +3,7 @@ package pl.birskidev.mailattwarda.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import pl.birskidev.mailattwarda.network.mapper.ChipMapper
 import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
 import pl.birskidev.mailattwarda.network.response.CheckCredentials
@@ -13,7 +13,7 @@ import pl.birskidev.mailattwarda.repository.*
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
     @Singleton

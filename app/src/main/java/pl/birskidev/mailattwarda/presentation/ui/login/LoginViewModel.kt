@@ -1,17 +1,19 @@
 package pl.birskidev.mailattwarda.presentation.ui.login
 
 import android.view.View
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import pl.birskidev.mailattwarda.R
 import pl.birskidev.mailattwarda.repository.CheckCredentialsRepository
+import javax.inject.Inject
 
+@HiltViewModel
 class LoginViewModel
-@ViewModelInject
+@Inject
 constructor(
     private val repository: CheckCredentialsRepository
 ) : ViewModel() {
