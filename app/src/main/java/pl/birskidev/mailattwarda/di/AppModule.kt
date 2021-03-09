@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import pl.birskidev.mailattwarda.network.mapper.AttachmentMapper
 import pl.birskidev.mailattwarda.network.mapper.MessageDtoMapper
 import pl.birskidev.mailattwarda.network.mapper.util.MyMessageUtil
@@ -18,7 +18,7 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Singleton
